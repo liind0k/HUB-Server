@@ -1,6 +1,0 @@
-@ICTInfoHub.Model_HostAddress = http://localhost:5137
-
-GET {{ICTInfoHub.Model_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
