@@ -27,4 +27,5 @@ namespace ICTInfoHub.Model.Model
         senior,
         newcomer
     }
+
 }

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICTInfoHub.API", "ICTInfoHub.API\ICTInfoHub.API.csproj", "{E8FE27A3-3203-456A-8E53-61B21C8F9D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICTInfoHub.API", "ICTInfoHub.API\ICTInfoHub.API.csproj", "{E8FE27A3-3203-456A-8E53-61B21C8F9D5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICTInfoHub.Model", "ICTInfoHub.Model\ICTInfoHub.Model.csproj", "{93B08D67-3032-4104-9A5F-72318DE89201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICTInfoHub.Services", "ICTInfoHub.Services\ICTInfoHub.Services.csproj", "{9B9A8C61-5796-4EFD-8E13-CA5B41EDA064}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E8FE27A3-3203-456A-8E53-61B21C8F9D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8FE27A3-3203-456A-8E53-61B21C8F9D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8FE27A3-3203-456A-8E53-61B21C8F9D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B08D67-3032-4104-9A5F-72318DE89201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B08D67-3032-4104-9A5F-72318DE89201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B08D67-3032-4104-9A5F-72318DE89201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B08D67-3032-4104-9A5F-72318DE89201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B9A8C61-5796-4EFD-8E13-CA5B41EDA064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B9A8C61-5796-4EFD-8E13-CA5B41EDA064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B9A8C61-5796-4EFD-8E13-CA5B41EDA064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B9A8C61-5796-4EFD-8E13-CA5B41EDA064}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
