@@ -1,0 +1,6 @@
+@ICTInfoHub.API_HostAddress = http://localhost:5058
+
+GET {{ICTInfoHub.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
