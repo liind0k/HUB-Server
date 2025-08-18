@@ -12,11 +12,15 @@ namespace ICTInfoHub.Services.AdminServices
     public interface IAdminServices
     {
         Task<Admin> loginAsync(LoginAdminDTO loginAdmin);
+        bool addAdmin(AddAdminDTO staff);
         bool addNews(CreateNewsDTO createNewsDTO);
         bool updateNews(UpdateNewsDTO updateNewsDTO);
-        bool addAdmin(Admin staff);
+        Task<List<News>> getNewsByCampus(string Campus);
+        bool tagCampus(TagCampusDTO tagCampusDTO);
+        bool deleteNews(int  id);
         Task<List<Service>> getAllServices();        
-        Task<Service> updateServiceContact();
+        Task updateServiceContact(UpdateServiceContactsDTO serviceContactsDTO);
+        Task updateServiceSteps(UpdateStepsDTO updateStepsDTO);
         
 
     }

@@ -13,7 +13,7 @@ namespace ICTInfoHub.Services.AdminServices
     {
         private readonly AdminDbContext _context;
 
-        public bool addAdmin(Admin staff)
+        public bool addAdmin(AddAdminDTO staff)
         {
             
             var admin = _context.Admins.FirstOrDefault(a => a.Email == staff.Email);
@@ -75,9 +75,21 @@ namespace ICTInfoHub.Services.AdminServices
             return services;
         }
 
-        public Task<Service> updateServiceContact()
+        public async Task updateServiceContact(UpdateServiceContactsDTO updateContacts)
         {
-            throw new NotImplementedException();
+            var service =  _context.Services.Find(updateContacts.Id);
+
+            if (service != null)
+            {
+                service.Phone = updateContacts.phone;
+                service.Email = updateContacts.email;
+                service.Location = updateContacts.location;
+
+                _context.Services.Update(service);
+                _context.SaveChanges();
+
+            }
+        
         }
 
         public async Task<Admin> loginAsync(LoginAdminDTO loginAdmin)
@@ -120,5 +132,53 @@ namespace ICTInfoHub.Services.AdminServices
             }
         }
 
+        public async Task updateServiceSteps(UpdateStepsDTO updateStepsDTO)
+        {
+            var service = _context.Services.Find(updateStepsDTO.ServiceId);
+            if (service != null)
+            {
+                service.Steps = updateStepsDTO.Steps;
+                _context.Services.Update(service);
+                _context.SaveChanges();
+            }
+        }
+
+        public bool deleteNews(int id)
+        {
+            var News = _context.News.Find(id);
+            if (News == null) 
+            { 
+                return false; 
+            }else
+            {
+                _context.News.Remove(News);
+                _context.SaveChanges();
+                return true;
+            }
+        }
+
+        public async Task<List<News>> getNewsByCampus(string Campus)
+        {
+            List<News> News =  await _context.News.Select(a => a).Where(a => a.Campus == Campus).ToListAsync();
+            return News;
+        }
+
+        public bool tagCampus(TagCampusDTO tagCampusDTO)
+        {
+            var News = _context.News.Find(tagCampusDTO.newsId);
+
+            if(News == null)
+            {
+                return false;
+            }
+            else
+            {
+                News.Campus = tagCampusDTO.campus;
+                _context.Update(News);
+                _context.SaveChanges();
+          
+                return true;
+            }
+        }
     }
 }

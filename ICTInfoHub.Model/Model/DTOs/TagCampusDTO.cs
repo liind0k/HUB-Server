@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ICTInfoHub.Model.Model.DTOs
 {
-    public class UpdateStepsDTO
+    public class TagCampusDTO
     {
-        public int ServiceId { get; set; }
-
-        public List<Steps> Steps { get; set; }
+        public int newsId {  get; set; }
+        public string campus {  get; set; }
     }
 }
