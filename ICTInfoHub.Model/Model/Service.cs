@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace ICTInfoHub.Model.Model
 {
     public class Service

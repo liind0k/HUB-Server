@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace ICTInfoHub.Model.Model
 {
@@ -6,25 +7,18 @@ namespace ICTInfoHub.Model.Model
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
         public string Title { get; set; }
-
         [Required]
         public string Description { get; set; }
-
         [Required]
         [EnumDataType(typeof(Priority))]
         public String Priority { get; set; }
-
         [Required]
-        public bool IsDepartment { get; set; }
-
-        [Required]
+        [EnumDataType (typeof(NewsCategory))]
         public string Category { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
-        public string? DocLocation { get; set; }
-
+        public IFormFile? DocFile { get; set; }
         [Required]
         [EnumDataType(typeof(Campus))]
         public string? Campus { get; set; }
@@ -40,5 +34,10 @@ namespace ICTInfoHub.Model.Model
         urgent,
         moderate,
         low
+    }
+    public enum NewsCategory
+    {
+        department,
+        faculty
     }
 }

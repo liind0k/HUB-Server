@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace ICTInfoHub.Model.Model.DTOs
 {
@@ -20,12 +22,8 @@ namespace ICTInfoHub.Model.Model.DTOs
         public string Priority { get; set; }
 
         [Required]
-        public bool IsDepartment { get; set; }
-
-        [Required]
         public string Category { get; set; }
 
-        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
         [Required]
         public IFormFile? DocFile { get; set; }
