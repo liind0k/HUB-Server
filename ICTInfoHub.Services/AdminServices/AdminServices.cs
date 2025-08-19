@@ -158,17 +158,27 @@ namespace ICTInfoHub.Services.AdminServices
             }
         }
 
-        public bool deleteNews(int id)
+        public bool deleteNews(DeleteNewsDto deleteNews)
         {
-            var News = _context.News.Find(id);
-            if (News == null) 
-            { 
-                return false; 
-            }else
+            var admin = _context.Admins.FirstOrDefault(a => a.Id == deleteNews.AdminId && a.Password == deleteNews.password);
+            if (admin != null)
             {
-                _context.News.Remove(News);
-                _context.SaveChanges();
-                return true;
+
+                var News = _context.News.Find(deleteNews.NewsId);
+                if (News == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    _context.News.Remove(News);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 

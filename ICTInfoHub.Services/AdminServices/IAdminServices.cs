@@ -21,7 +21,7 @@ namespace ICTInfoHub.Services.AdminServices
         bool updateNews(UpdateNewsDTO updateNewsDTO);
         Task<List<News>> getNewsByCampus(string Campus);
         bool tagCampus(TagCampusDTO tagCampusDTO);
-        bool deleteNews(int  id);
+        bool deleteNews(DeleteNewsDto deleteNews);
         Task<List<Service>> getAllServices();        
         Task updateServiceContact(UpdateServiceContactsDTO serviceContactsDTO);
         Task updateServiceSteps(UpdateStepsDTO updateStepsDTO);

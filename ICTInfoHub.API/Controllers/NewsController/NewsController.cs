@@ -54,9 +54,30 @@ namespace ICTInfoHub.API.Controllers.NewsController
             }
         }
 
+        [HttpDelete("deleteNews")]
+        public IActionResult deleteNews(DeleteNewsDto deleteNews)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var res = _adminServices.deleteNews(deleteNews);
+
+            if (!res)
+            {
+                return StatusCode(400);
+            }
+            else
+            {
+                return StatusCode(201);
+            }
+        }
+
         [HttpGet("getAllNews")]
         public IActionResult getAllNews()
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var res = _adminServices.getAllNews();
 
             if (res!=null)
@@ -72,6 +93,9 @@ namespace ICTInfoHub.API.Controllers.NewsController
         [HttpGet("getNewsByCampus")]
         public async Task<IActionResult> getNewsByCampus(string Campus)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var res = await _adminServices.getNewsByCampus(Campus);
 
             if (res != null)
@@ -83,5 +107,6 @@ namespace ICTInfoHub.API.Controllers.NewsController
                 return StatusCode(400);  
             }
         }
+
     }
 }

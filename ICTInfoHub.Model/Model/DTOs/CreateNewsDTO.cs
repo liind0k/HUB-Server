@@ -8,6 +8,7 @@ namespace ICTInfoHub.Model.Model.DTOs
     public class CreateNewsDTO
     {
         [Required(ErrorMessage = "Admin ID is required")]
+        [ForeignKey("AdminId")]
         public int AdminId { get; set; }
 
         [Required]
