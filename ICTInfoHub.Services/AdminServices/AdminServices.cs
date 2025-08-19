@@ -51,27 +51,40 @@ namespace ICTInfoHub.Services.AdminServices
 
         public bool addNews(CreateNewsDTO createNews)
         {
-            try
+            var admin = _context.Admins.Find(createNews.AdminId);
+            if (admin != null)
             {
-                var news = new News()
-                            {
-                                Title = createNews.Title,
-                                Description = createNews.Description,
-                                Priority = createNews.Priority,
-                                Campus = createNews.Priority,
-                                Category = createNews.Category,
-                                DocFile = createNews.DocFile,
-                                CreatedAt = createNews.CreatedDate, 
+                try
+                {
+                    var news = new News()
+                    {
+                        Title = createNews.Title,
+                        Description = createNews.Description,
+                        Priority = createNews.Priority,
+                        Campus = createNews.Campus,
+                        Category = createNews.Category,
+                        DocFile = createNews.DocFile,
+                        CreatedAt = DateTime.UtcNow,
 
-                            };
-                _context.Add<News>(news);
-                _context.SaveChanges();
-                return true;
-            }catch (Exception ex)
+                    };
+                    _context.Add<News>(news);
+                    _context.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+            else
             {
                 return false;
             }
-            
+        }
+        public List<News> getAllNews()
+        {
+            List<News> list = _context.News.ToList();
+            return list;
         }
 
         public async Task<List<Service>> getAllServices()
@@ -106,28 +119,25 @@ namespace ICTInfoHub.Services.AdminServices
             return admin;
         }
 
-        public bool updateNews(UpdateNewsDTO updateNewsDTO)
+        public bool updateNews(UpdateNewsDTO updateNews)
         {
-            var News = _context.News.FirstOrDefaultAsync(a => a.Id == updateNewsDTO.NewsId);
+            var News = _context.News.Find(updateNews.NewsId);
 
             if(News == null)
             {
-                return true;
+                return false;
             }
             else
             {
                 try 
                 {
-                    var NewNews = new News()
-                    {
-                        Id = updateNewsDTO.NewsId,
-                        Title = updateNewsDTO.Title,
-                        Description = updateNewsDTO.Description,
-                        Priority = updateNewsDTO.Priority,
-                        Campus = updateNewsDTO.Campus,
-                        Category = updateNewsDTO.Category,
-                        DocFile = updateNewsDTO.DocFile,
-                    };
+                    News.Title = updateNews.Title;
+                    News.Description = updateNews.Description;
+                    News.Campus = updateNews.Campus;
+                    News.Category = updateNews.Category;
+                    News.Priority = updateNews.Priority;
+                    _context.Update(News);
+                    _context.SaveChanges();
                     return true;
                 }catch (Exception ex)
                 {

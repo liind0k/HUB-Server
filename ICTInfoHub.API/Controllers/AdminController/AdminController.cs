@@ -4,14 +4,14 @@ using ICTInfoHub.Model.Model.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace ICTInfoHub.API.Controllers
+namespace ICTInfoHub.API.Controllers.AdminController
 {
     [ApiController]
     [Route("/admin")]
     public class AdminController : ControllerBase
-    {        
+    {
         IAdminServices _adminServices;
-        
+
         public AdminController(IAdminServices adminServices)
         {
             _adminServices = adminServices;
@@ -20,7 +20,7 @@ namespace ICTInfoHub.API.Controllers
         [HttpPost("addAdmin")]
         public IActionResult addAdmin(AddAdminDTO admin)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var res = _adminServices.addAdmin(admin);
@@ -59,20 +59,20 @@ namespace ICTInfoHub.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-                var res = _adminServices.updateEmail(admin);
+            var res = _adminServices.updateEmail(admin);
 
-                if(res)
-                {
-                    return StatusCode(201);
-                }
-                else
-                {
-                    return StatusCode(400);
-                }
-                
+            if (res)
+            {
+                return StatusCode(201);
+            }
+            else
+            {
+                return StatusCode(400);
+            }
+
 
         }
-        
+
         [HttpPost("updatePassword")]
         public IActionResult updatePassword(UpdatePasswordDTO updatePassword)
         {
@@ -81,7 +81,7 @@ namespace ICTInfoHub.API.Controllers
 
             var res = _adminServices.updatePassword(updatePassword);
 
-            if( res)
+            if (res)
             {
                 return StatusCode(201);
             }
@@ -97,7 +97,7 @@ namespace ICTInfoHub.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            
+
             var getAdmin = await _adminServices.loginAsync(admin);
 
             if (getAdmin == null)
@@ -107,9 +107,9 @@ namespace ICTInfoHub.API.Controllers
             else
             {
                 return Ok(getAdmin);
-            } 
-           
+            }
+
         }
-        
+
     }
 }

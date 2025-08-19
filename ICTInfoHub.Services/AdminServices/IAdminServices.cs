@@ -16,6 +16,7 @@ namespace ICTInfoHub.Services.AdminServices
         bool updateDetails(UpdateDetailsDTO updateDetails);
         bool updatePassword(UpdatePasswordDTO updatePassword);
         bool updateEmail(UpdateEmailDTO updateEmail);
+        List<News> getAllNews();
         bool addNews(CreateNewsDTO createNewsDTO);
         bool updateNews(UpdateNewsDTO updateNewsDTO);
         Task<List<News>> getNewsByCampus(string Campus);

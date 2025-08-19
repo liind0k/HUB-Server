@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace ICTInfoHub.Model.Model.DTOs
@@ -8,8 +9,6 @@ namespace ICTInfoHub.Model.Model.DTOs
     {
         [Required(ErrorMessage = "Admin ID is required")]
         public int AdminId { get; set; }
-
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         [Required]
         public string Title { get; set; }
@@ -22,10 +21,14 @@ namespace ICTInfoHub.Model.Model.DTOs
         public string Priority { get; set; }
 
         [Required]
+        [EnumDataType (typeof(NewsCategory))]
         public string Category { get; set; }
-
-
+        [EnumDataType(typeof(Department))]
+        public string Department { get; set; }
         [Required]
+        [EnumDataType (typeof(Campus))]
+        public string Campus { get; set; }
+        [NotMapped]
         public IFormFile? DocFile { get; set; }
 
     }

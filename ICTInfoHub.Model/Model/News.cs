@@ -13,6 +13,8 @@ namespace ICTInfoHub.Model.Model
         [Required]
         public string Description { get; set; }
         [Required]
+        public string Department { get; set; }
+        [Required]
         [EnumDataType(typeof(Priority))]
         public String Priority { get; set; }
         [Required]
@@ -41,5 +43,13 @@ namespace ICTInfoHub.Model.Model
     {
         department,
         faculty
+    }
+    public enum Department
+    {
+        computerScience,
+        informationTechnology,
+        infomatics,
+        computerSystemsEngineering
+
     }
 }
