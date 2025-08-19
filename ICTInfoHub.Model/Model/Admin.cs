@@ -16,7 +16,6 @@ namespace ICTInfoHub.Model.Model
 
         [Required]
         public string Password { get; set; }
-        public List<News> News { get; set; } = new();
 
     }
 }

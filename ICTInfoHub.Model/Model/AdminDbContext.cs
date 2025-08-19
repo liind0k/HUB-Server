@@ -9,6 +9,7 @@ namespace ICTInfoHub.Model.Model
 {
     public class AdminDbContext: DbContext
     {
+        public AdminDbContext(DbContextOptions<AdminDbContext> options) : base(options) { }
         public DbSet<Admin> Admins { get; set; }
 
         public DbSet<News> News { get; set; }
@@ -20,7 +21,6 @@ namespace ICTInfoHub.Model.Model
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Admin>().HasOne(a => a.Email);
         }
     }
 }

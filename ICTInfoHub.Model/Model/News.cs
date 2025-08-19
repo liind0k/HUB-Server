@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ICTInfoHub.Model.Model
 {
@@ -18,6 +19,7 @@ namespace ICTInfoHub.Model.Model
         [EnumDataType (typeof(NewsCategory))]
         public string Category { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
+        [NotMapped]
         public IFormFile? DocFile { get; set; }
         [Required]
         [EnumDataType(typeof(Campus))]

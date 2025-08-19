@@ -13,6 +13,9 @@ namespace ICTInfoHub.Services.AdminServices
     {
         Task<Admin> loginAsync(LoginAdminDTO loginAdmin);
         bool addAdmin(AddAdminDTO staff);
+        bool updateDetails(UpdateDetailsDTO updateDetails);
+        bool updatePassword(UpdatePasswordDTO updatePassword);
+        bool updateEmail(UpdateEmailDTO updateEmail);
         bool addNews(CreateNewsDTO createNewsDTO);
         bool updateNews(UpdateNewsDTO updateNewsDTO);
         Task<List<News>> getNewsByCampus(string Campus);
