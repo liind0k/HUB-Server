@@ -22,7 +22,17 @@ namespace ICTInfoHub.Services.ServiceServices
             List<Service> services = _context.Services.ToList();
             return services;
         }
-        public async Task<List<Service>> getServicesByCategory(string category)
+        public List<Service> getServicesByCampus(string campus)
+        {
+            var services =  _context.Services.Select(a => a).Where(a => a.Campus == campus).ToList();
+            return services;
+        }
+        public List<Service> getServicesByCampusAndCategory(string campus, string category)
+        {
+            var services = _context.Services.Select(a=>a).Where(a=>a.Campus == campus && a.Category == category).ToList();
+            return services;
+        }
+        public List<Service> getServicesByCategory(string category)
         {
             var res = await _context.Services.Select(a => a).Where(a => a.Category == category).ToListAsync();
 

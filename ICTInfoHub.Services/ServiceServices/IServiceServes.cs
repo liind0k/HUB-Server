@@ -10,8 +10,10 @@ namespace ICTInfoHub.Services.ServiceServices
 {
     public interface IServiceServes
     {
-        public Task<List<Service>> getServicesByCategory(string category);
+        public List<Service> getServicesByCategory(string category);
         Task<List<Service>> getAllServices();
+        List<Service> getServicesByCampus(string campus);
+        List<Service> getServicesByCampusAndCategory(string campus,string category);
         Task updateServiceContact(UpdateServiceContactsDTO serviceContactsDTO);
         Task updateServiceSteps(UpdateStepsDTO updateStepsDTO);
     }

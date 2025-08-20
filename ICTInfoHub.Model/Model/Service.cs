@@ -15,6 +15,8 @@ namespace ICTInfoHub.Model.Model
         public string Email { get; set; }
         public string Location { get; set; }
         public string Phone { get; set; }
+        [EnumDataType(typeof(Campus))]
+        public string Campus { get; set; }
         [Required]
         public List<Steps> Steps { get; set; }
         [Required]
