@@ -1,4 +1,4 @@
-﻿using ICTInfoHub.Services.AdminServices;
+﻿using ICTInfoHub.Services.NewsServices;
 using Microsoft.AspNetCore.Mvc;
 using ICTInfoHub.Model.Model;
 using ICTInfoHub.Model.Model.DTOs;
@@ -11,11 +11,11 @@ namespace ICTInfoHub.API.Controllers.NewsController
     [Route("/news")]
     public class NewsController : ControllerBase
     {
-        IAdminServices _adminServices;
+        INewsServices _newsServices;
 
-        public NewsController(IAdminServices adminServices)
+        public NewsController(INewsServices newsServices)
         {
-            _adminServices = adminServices;
+            _newsServices = newsServices;
         }
 
         [HttpPost("createNews")]
@@ -24,7 +24,7 @@ namespace ICTInfoHub.API.Controllers.NewsController
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = await _adminServices.addNews(createNews);
+            var res = await _newsServices.addNews(createNews);
 
             if (res)
             {
@@ -42,7 +42,7 @@ namespace ICTInfoHub.API.Controllers.NewsController
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState);
 
-            var res = await _adminServices.updateNews(updateNews);
+            var res = await _newsServices.updateNews(updateNews);
 
             if(res)
             {
@@ -60,7 +60,7 @@ namespace ICTInfoHub.API.Controllers.NewsController
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _adminServices.deleteNews(deleteNews);
+            var res = _newsServices.deleteNews(deleteNews);
 
             if (!res)
             {
@@ -78,7 +78,7 @@ namespace ICTInfoHub.API.Controllers.NewsController
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _adminServices.getAllNews();
+            var res = _newsServices.getAllNews();
 
             if (res!=null)
             {
@@ -96,7 +96,7 @@ namespace ICTInfoHub.API.Controllers.NewsController
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = await _adminServices.getNewsByCampus(Campus);
+            var res = await _newsServices.getNewsByCampus(Campus);
 
             if (res != null)
             {

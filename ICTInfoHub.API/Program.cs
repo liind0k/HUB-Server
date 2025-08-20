@@ -1,6 +1,7 @@
 using ICTInfoHub.Model.Model;
 using Microsoft.EntityFrameworkCore;
 using ICTInfoHub.Services.AdminServices;
+using ICTInfoHub.Services.NewsServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<AdminDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IAdminServices, AdminServices>();
+builder.Services.AddScoped<INewsServices, NewsServices>();
 
 var app = builder.Build();
 

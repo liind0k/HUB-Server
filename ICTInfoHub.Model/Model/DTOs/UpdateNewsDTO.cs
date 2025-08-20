@@ -14,7 +14,7 @@ namespace ICTInfoHub.Model.Model.DTOs
         [EnumDataType(typeof(Priority))]
         public string Priority { get; set; }       
         public string Category { get; set; }
-        public IFormFile formFile { get; set; }
+        public IFormFile? formFile { get; set; }
         [EnumDataType (typeof(Campus))]
         public string Campus { get; set; }
         [EnumDataType(typeof (Department))]

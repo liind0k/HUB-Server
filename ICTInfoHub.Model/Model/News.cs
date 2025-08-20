@@ -13,6 +13,7 @@ namespace ICTInfoHub.Model.Model
         [Required]
         public string Description { get; set; }
         [Required]
+        [EnumDataType(typeof(Department))]
         public string Department { get; set; }
         [Required]
         [EnumDataType(typeof(Priority))]
