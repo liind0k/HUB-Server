@@ -95,9 +95,9 @@ namespace ICTInfoHub.Services.NewsServices
 
             }
         }
-        public bool deleteNews(DeleteNewsDto deleteNews)
+        public async Task<bool> deleteNews(DeleteNewsDto deleteNews)
         {
-            var admin = _context.Admins.FirstOrDefault(a => a.Id == deleteNews.AdminId && a.Password == deleteNews.password);
+            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Id == deleteNews.AdminId && a.Password == deleteNews.password);
             if (admin != null)
             {
 
@@ -118,9 +118,9 @@ namespace ICTInfoHub.Services.NewsServices
                 return false;
             }
         }
-        public List<News> getAllNews()
+        public async Task<List<News>> getAllNews()
         {
-            List<News> list = _context.News.ToList();
+            List<News> list = await _context.News.ToListAsync();
             return list;
         }
         public async Task<List<News>> getNewsByCampus(string Campus)
@@ -128,9 +128,9 @@ namespace ICTInfoHub.Services.NewsServices
             List<News> News = await _context.News.Select(a => a).Where(a => a.Campus == Campus || a.Campus == "all").ToListAsync();
             return News;
         }
-        public bool tagCampus(TagCampusDTO tagCampusDTO)
+        public async Task<bool> tagCampus(TagCampusDTO tagCampusDTO)
         {
-            var News = _context.News.Find(tagCampusDTO.newsId);
+            var News = await _context.News.FindAsync(tagCampusDTO.newsId);
 
             if (News == null)
             {

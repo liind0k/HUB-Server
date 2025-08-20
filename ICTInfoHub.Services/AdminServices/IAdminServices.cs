@@ -13,10 +13,10 @@ namespace ICTInfoHub.Services.AdminServices
     public interface IAdminServices
     {
         Task<Admin> loginAsync(LoginAdminDTO loginAdmin);
-        bool addAdmin(AddAdminDTO staff);
-        bool updateDetails(UpdateDetailsDTO updateDetails);
-        bool updatePassword(UpdatePasswordDTO updatePassword);
-        bool updateEmail(UpdateEmailDTO updateEmail);       
+        Task<bool> addAdmin(AddAdminDTO staff);
+        Task<bool> updateDetails(UpdateDetailsDTO updateDetails);
+        Task<bool> updatePassword(UpdatePasswordDTO updatePassword);
+        Task<bool> updateEmail(UpdateEmailDTO updateEmail);       
         
 
         

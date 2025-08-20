@@ -19,20 +19,20 @@ namespace ICTInfoHub.Services.ServiceServices
         }
         public async Task<List<Service>> getAllServices()
         {
-            List<Service> services = _context.Services.ToList();
+            List<Service> services = await _context.Services.ToListAsync();
             return services;
         }
-        public List<Service> getServicesByCampus(string campus)
+        public async Task<List<Service>> getServicesByCampus(string campus)
         {
-            var services =  _context.Services.Select(a => a).Where(a => a.Campus == campus).ToList();
+            var services =  await _context.Services.Select(a => a).Where(a => a.Campus == campus).ToListAsync();
             return services;
         }
-        public List<Service> getServicesByCampusAndCategory(string campus, string category)
+        public async Task<List<Service>> getServicesByCampusAndCategory(string campus, string category)
         {
-            var services = _context.Services.Select(a=>a).Where(a=>a.Campus == campus && a.Category == category).ToList();
+            var services = await _context.Services.Select(a=>a).Where(a=>a.Campus == campus && a.Category == category).ToListAsync();
             return services;
         }
-        public List<Service> getServicesByCategory(string category)
+        public async Task<List<Service>> getServicesByCategory(string category)
         {
             var res = await _context.Services.Select(a => a).Where(a => a.Category == category).ToListAsync();
 
@@ -44,7 +44,7 @@ namespace ICTInfoHub.Services.ServiceServices
         }
         public async Task updateServiceContact(UpdateServiceContactsDTO updateContacts)
         {
-            var service = _context.Services.Find(updateContacts.Id);
+            var service = await _context.Services.FindAsync(updateContacts.Id);
 
             if (service != null)
             {

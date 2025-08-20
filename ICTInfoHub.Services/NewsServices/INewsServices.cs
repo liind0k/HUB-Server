@@ -12,11 +12,11 @@ namespace ICTInfoHub.Services.NewsServices
     public interface INewsServices
     {
         
-        List<News> getAllNews();
+        Task<List<News>> getAllNews();
         Task<bool> addNews(CreateNewsDTO createNewsDTO);
         Task<bool> updateNews(UpdateNewsDTO updateNewsDTO);
         Task<List<News>> getNewsByCampus(string Campus);
-        bool tagCampus(TagCampusDTO tagCampusDTO);
-        bool deleteNews(DeleteNewsDto deleteNews);
+        Task<bool> tagCampus(TagCampusDTO tagCampusDTO);
+        Task<bool> deleteNews(DeleteNewsDto deleteNews);
     }
 }

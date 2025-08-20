@@ -7,7 +7,7 @@ namespace ICTInfoHub.Model.Model
     public class News
     {
         [Key]
-        public int Id { get; set; }
+        public int NewsId { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -26,7 +26,6 @@ namespace ICTInfoHub.Model.Model
         [Required]
         [EnumDataType(typeof(Campus))]
         public string? Campus { get; set; }
-
 
     }
     public enum Campus{

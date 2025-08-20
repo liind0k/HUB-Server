@@ -16,11 +16,16 @@ namespace ICTInfoHub.Model.Model
 
         public DbSet<Service> Services { get; set; }
 
+        public DbSet<Steps> Steps { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<Service>()
+             .HasMany(sm => sm.Steps)
+             .WithOne(s => s.service)
+             .HasForeignKey(sm => sm.StepId);
         }
     }
 }

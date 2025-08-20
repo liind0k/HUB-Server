@@ -19,10 +19,10 @@ namespace ICTInfoHub.Services.AdminServices
         {
             _context = context;
         }
-        public bool addAdmin(AddAdminDTO staff)
+        public async Task<bool> addAdmin(AddAdminDTO staff)
         {
             
-            var admin = _context.Admins.FirstOrDefault(a => a.Email == staff.Email);
+            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Email == staff.Email);
 
             if(admin != null)
             {
@@ -57,9 +57,9 @@ namespace ICTInfoHub.Services.AdminServices
 
             return admin;
         }
-        public bool updateDetails(UpdateDetailsDTO updateDetails)
+        public async Task<bool> updateDetails(UpdateDetailsDTO updateDetails)
         {
-            var admin = _context.Admins.Find(updateDetails.AdminId);
+            var admin = await _context.Admins.FindAsync(updateDetails.AdminId);
 
             if(admin == null)
             {
@@ -80,9 +80,9 @@ namespace ICTInfoHub.Services.AdminServices
                 }
             }
         }
-        public bool updatePassword(UpdatePasswordDTO updatePassword)
+        public async Task<bool> updatePassword(UpdatePasswordDTO updatePassword)
         {
-            var Admin = _context.Admins.Find(updatePassword.Id);
+            var Admin = await _context.Admins.FindAsync(updatePassword.Id);
 
             if(Admin == null)
             {
@@ -104,9 +104,9 @@ namespace ICTInfoHub.Services.AdminServices
                 
             }
         }
-        public bool updateEmail(UpdateEmailDTO updateEmail)
+        public async Task<bool> updateEmail(UpdateEmailDTO updateEmail)
         {
-            var admin = _context.Admins.Find(updateEmail.Id);
+            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Id == updateEmail.Id);
 
             if(admin == null)
             {
