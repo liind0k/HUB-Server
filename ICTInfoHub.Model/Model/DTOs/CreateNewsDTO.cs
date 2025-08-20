@@ -29,8 +29,8 @@ namespace ICTInfoHub.Model.Model.DTOs
         [Required]
         [EnumDataType (typeof(Campus))]
         public string Campus { get; set; }
-        [NotMapped]
-        public IFormFile? DocFile { get; set; }
+        public IFormFile? FormFile { get; set; }
 
+        public byte[]? Document;
     }
 }

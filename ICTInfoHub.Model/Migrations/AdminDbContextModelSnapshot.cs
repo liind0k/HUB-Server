@@ -78,6 +78,9 @@ namespace ICTInfoHub.Model.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("DocFile")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Priority")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

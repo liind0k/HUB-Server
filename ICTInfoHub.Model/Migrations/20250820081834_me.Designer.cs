@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICTInfoHub.Model.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20250819120922_qwe")]
-    partial class qwe
+    [Migration("20250820081834_me")]
+    partial class me
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,9 @@ namespace ICTInfoHub.Model.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("DocFile")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Priority")
                         .IsRequired()

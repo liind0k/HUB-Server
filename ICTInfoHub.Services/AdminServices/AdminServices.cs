@@ -1,6 +1,8 @@
 ﻿using ICTInfoHub.Model.Model;
 using ICTInfoHub.Model.Model.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,13 +51,27 @@ namespace ICTInfoHub.Services.AdminServices
 
         }
 
-        public bool addNews(CreateNewsDTO createNews)
+        public async Task<Byte[]> convertToByte(IFormFile formFile)
+        {
+            using var incomeStream = new MemoryStream();
+            formFile.CopyToAsync(incomeStream);
+            byte[] DocFile = incomeStream.ToArray();
+            return DocFile;
+        }
+        public async Task<bool> addNews(CreateNewsDTO createNews)
         {
             var admin = _context.Admins.Find(createNews.AdminId);
             if (admin != null)
             {
-                try
+                try { 
+
+                if (createNews.FormFile != null)
                 {
+                    var Document = createNews.FormFile;
+                    byte[] DocFile = await convertToByte(Document);
+                    
+                }
+             
                     var news = new News()
                     {
                         Title = createNews.Title,
@@ -63,8 +79,9 @@ namespace ICTInfoHub.Services.AdminServices
                         Priority = createNews.Priority,
                         Campus = createNews.Campus,
                         Category = createNews.Category,
-                        DocFile = createNews.DocFile,
+                        DocFile = createNews.Document,
                         CreatedAt = DateTime.UtcNow,
+                        Department = createNews.Department,
 
                     };
                     _context.Add<News>(news);
@@ -73,6 +90,7 @@ namespace ICTInfoHub.Services.AdminServices
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());
                     return false;
                 }
             }
@@ -91,6 +109,17 @@ namespace ICTInfoHub.Services.AdminServices
         {
             List<Service> services =  _context.Services.ToList();
             return services;
+        }
+
+        public async Task<List<Service>> getServicesByCategory(string category)
+        {
+            var res =   await _context.Services.Select(a => a).Where(a => a.Category == category).ToListAsync();
+
+            if(res.Count == 0)
+            {
+                return null;
+            }
+            return res;
         }
 
         public async Task updateServiceContact(UpdateServiceContactsDTO updateContacts)
@@ -119,7 +148,7 @@ namespace ICTInfoHub.Services.AdminServices
             return admin;
         }
 
-        public bool updateNews(UpdateNewsDTO updateNews)
+        public async Task<bool> updateNews(UpdateNewsDTO updateNews)
         {
             var News = _context.News.Find(updateNews.NewsId);
 
@@ -131,8 +160,14 @@ namespace ICTInfoHub.Services.AdminServices
             {
                 try 
                 {
+                    if(updateNews.formFile != null)
+                    {
+                        byte[] document = await convertToByte(updateNews.formFile);
+                        News.DocFile = document;
+                    }
                     News.Title = updateNews.Title;
                     News.Description = updateNews.Description;
+                    News.Department = updateNews.Department;
                     News.Campus = updateNews.Campus;
                     News.Category = updateNews.Category;
                     News.Priority = updateNews.Priority;
@@ -141,6 +176,7 @@ namespace ICTInfoHub.Services.AdminServices
                     return true;
                 }catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
 

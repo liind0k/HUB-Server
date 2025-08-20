@@ -15,6 +15,7 @@ namespace ICTInfoHub.Model.Model
         public string Email { get; set; }
         public string Location { get; set; }
         public string Phone { get; set; }
+        [Required]
         public List<Steps> Steps { get; set; }
         [Required]
         [EnumDataType(typeof(Category))]
@@ -22,7 +23,6 @@ namespace ICTInfoHub.Model.Model
     }
     public enum Category
     {
-        all,
         senior,
         newcomer
     }

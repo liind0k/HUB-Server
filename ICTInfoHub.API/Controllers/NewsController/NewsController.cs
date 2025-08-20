@@ -19,12 +19,12 @@ namespace ICTInfoHub.API.Controllers.NewsController
         }
 
         [HttpPost("createNews")]
-        public IActionResult createNews(CreateNewsDTO createNews)
+        public async Task<IActionResult> createNews(CreateNewsDTO createNews)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _adminServices.addNews(createNews);
+            var res = await _adminServices.addNews(createNews);
 
             if (res)
             {
@@ -37,12 +37,12 @@ namespace ICTInfoHub.API.Controllers.NewsController
         }
 
         [HttpPut("updateNews")]
-        public IActionResult updateNews(UpdateNewsDTO updateNews)
+        public async Task<IActionResult> updateNews(UpdateNewsDTO updateNews)
         {
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState);
 
-            var res = _adminServices.updateNews(updateNews);
+            var res = await _adminServices.updateNews(updateNews);
 
             if(res)
             {

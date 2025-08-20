@@ -21,8 +21,7 @@ namespace ICTInfoHub.Model.Model
         [EnumDataType (typeof(NewsCategory))]
         public string Category { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
-        [NotMapped]
-        public IFormFile? DocFile { get; set; }
+        public byte[]? DocFile { get; set; }
         [Required]
         [EnumDataType(typeof(Campus))]
         public string? Campus { get; set; }
@@ -30,6 +29,7 @@ namespace ICTInfoHub.Model.Model
 
     }
     public enum Campus{
+        all,
         emalahleni,
         polokwane,
         soshanguve
@@ -46,6 +46,7 @@ namespace ICTInfoHub.Model.Model
     }
     public enum Department
     {
+        all,
         computerScience,
         informationTechnology,
         infomatics,

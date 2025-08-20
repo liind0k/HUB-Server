@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class qwe : Migration
+    public partial class me : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,6 +39,7 @@ namespace ICTInfoHub.Model.Migrations
                     Priority = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DocFile = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Campus = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
