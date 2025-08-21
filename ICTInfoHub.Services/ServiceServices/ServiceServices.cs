@@ -22,14 +22,14 @@ namespace ICTInfoHub.Services.ServiceServices
             List<Service> services = await _context.Services.ToListAsync();
             return services;
         }
-        public async Task<List<Service>> getServicesByCampus(string campus)
+        public async Task<List<Service>> getServicesByCampus(int campusId)
         {
-            var services =  await _context.Services.Select(a => a).Where(a => a.Campus == campus).ToListAsync();
+            var services =  await _context.Services.Select(a => a).Where(a => a.CampusId == campusId).ToListAsync();
             return services;
         }
-        public async Task<List<Service>> getServicesByCampusAndCategory(string campus, string category)
+        public async Task<List<Service>> getServicesByCampusAndCategory(int campusId, string category)
         {
-            var services = await _context.Services.Select(a=>a).Where(a=>a.Campus == campus && a.Category == category).ToListAsync();
+            var services = await _context.Services.Select(a=>a).Where(a=>a.CampusId == campusId && a.Category == category).ToListAsync();
             return services;
         }
         public async Task<List<Service>> getServicesByCategory(string category)

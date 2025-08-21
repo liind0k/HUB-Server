@@ -9,6 +9,6 @@ namespace ICTInfoHub.Model.Model.DTOs
     public class TagCampusDTO
     {
         public int newsId {  get; set; }
-        public string campus {  get; set; }
+        public int campusId {  get; set; }
     }
 }

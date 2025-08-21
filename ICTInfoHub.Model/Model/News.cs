@@ -24,19 +24,19 @@ namespace ICTInfoHub.Model.Model
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
         public byte[]? DocFile { get; set; }
         [Required]
-        [EnumDataType(typeof(Campus))]
-        public string? Campus { get; set; }
+        public int? CampusId { get; set; }
+        [ForeignKey(nameof(CampusId))]
+        public Campus? Campus { get; set; }
+        [Required]
+        public int AdminId { get; set; }
+        [ForeignKey(nameof(AdminId))]
+        public Admin Admin { get; set; }
 
     }
-    public enum Campus{
-        all,
-        emalahleni,
-        polokwane,
-        soshanguve
-    }
+
     public enum Priority{
-        urgent,
-        moderate,
+        high,
+        medium,
         low
     }
     public enum NewsCategory

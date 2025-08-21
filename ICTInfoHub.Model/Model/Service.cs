@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace ICTInfoHub.Model.Model
@@ -16,7 +17,9 @@ namespace ICTInfoHub.Model.Model
         public string Location { get; set; }
         public string Phone { get; set; }
         [EnumDataType(typeof(Campus))]
-        public string Campus { get; set; }
+        public int CampusId { get; set; }
+        [ForeignKey(nameof(CampusId))]
+        public Campus Campus { get; set; }
         [Required]
         public List<Steps> Steps { get; set; }
         [Required]

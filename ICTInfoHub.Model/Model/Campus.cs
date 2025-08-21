@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+namespace ICTInfoHub.Model.Model
+{
+    public class Campus
+    {
+        [Key]
+        public int CampusId { get; set; }
+
+        [MaxLength(100)]
+        public string CampusName { get; set; }
+
+        public List<News> News { get; set; } = new List<News>();
+
+        public List<Service> Services { get; set; } = new List<Service>();
+
+    }
+}

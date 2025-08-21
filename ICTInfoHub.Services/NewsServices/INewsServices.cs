@@ -15,7 +15,7 @@ namespace ICTInfoHub.Services.NewsServices
         Task<List<News>> getAllNews();
         Task<bool> addNews(CreateNewsDTO createNewsDTO);
         Task<bool> updateNews(UpdateNewsDTO updateNewsDTO);
-        Task<List<News>> getNewsByCampus(string Campus);
+        Task<List<News>> getNewsByCampus(int Campus);
         Task<bool> tagCampus(TagCampusDTO tagCampusDTO);
         Task<bool> deleteNews(DeleteNewsDto deleteNews);
     }

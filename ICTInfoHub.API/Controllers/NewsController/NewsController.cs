@@ -55,12 +55,12 @@ namespace ICTInfoHub.API.Controllers.NewsController
         }
 
         [HttpDelete("deleteNews")]
-        public IActionResult deleteNews(DeleteNewsDto deleteNews)
+        public async Task<IActionResult> deleteNews(DeleteNewsDto deleteNews)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _newsServices.deleteNews(deleteNews);
+            var res =  await _newsServices.deleteNews(deleteNews);
 
             if (!res)
             {
@@ -73,12 +73,12 @@ namespace ICTInfoHub.API.Controllers.NewsController
         }
 
         [HttpGet("getAllNews")]
-        public IActionResult getAllNews()
+        public async  Task<IActionResult> getAllNews()
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _newsServices.getAllNews();
+            var res = await _newsServices.getAllNews();
 
             if (res!=null)
             {
@@ -91,12 +91,12 @@ namespace ICTInfoHub.API.Controllers.NewsController
         }
 
         [HttpGet("getNewsByCampus")]
-        public async Task<IActionResult> getNewsByCampus(string Campus)
+        public async Task<IActionResult> getNewsByCampus(int CampusId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = await _newsServices.getNewsByCampus(Campus);
+            var res = await _newsServices.getNewsByCampus(CampusId);
 
             if (res != null)
             {

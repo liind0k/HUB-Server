@@ -18,12 +18,12 @@ namespace ICTInfoHub.API.Controllers.AdminController
         }
 
         [HttpPost("addAdmin")]
-        public IActionResult addAdmin(AddAdminDTO admin)
+        public async Task<IActionResult> addAdmin(AddAdminDTO admin)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _adminServices.addAdmin(admin);
+            var res = await _adminServices.addAdmin(admin);
 
             if (res)
             {
@@ -36,12 +36,12 @@ namespace ICTInfoHub.API.Controllers.AdminController
         }
 
         [HttpPost("updateDetails")]
-        public IActionResult updateDetails(UpdateDetailsDTO admin)
+        public async Task<IActionResult> updateDetails(UpdateDetailsDTO admin)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _adminServices.updateDetails(admin);
+            var res = await _adminServices.updateDetails(admin);
 
             if (res)
             {
@@ -54,12 +54,12 @@ namespace ICTInfoHub.API.Controllers.AdminController
         }
 
         [HttpPost("updateEmail")]
-        public IActionResult updateEmail(UpdateEmailDTO admin)
+        public async Task<IActionResult> updateEmail(UpdateEmailDTO admin)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _adminServices.updateEmail(admin);
+            var res = await _adminServices.updateEmail(admin);
 
             if (res)
             {
@@ -74,12 +74,12 @@ namespace ICTInfoHub.API.Controllers.AdminController
         }
 
         [HttpPost("updatePassword")]
-        public IActionResult updatePassword(UpdatePasswordDTO updatePassword)
+        public async  Task<IActionResult> updatePassword(UpdatePasswordDTO updatePassword)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = _adminServices.updatePassword(updatePassword);
+            var res = await _adminServices.updatePassword(updatePassword);
 
             if (res)
             {
