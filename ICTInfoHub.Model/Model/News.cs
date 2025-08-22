@@ -13,13 +13,10 @@ namespace ICTInfoHub.Model.Model
         [Required]
         public string Description { get; set; }
         [Required]
-        [EnumDataType(typeof(Department))]
-        public string Department { get; set; }
-        [Required]
         [EnumDataType(typeof(Priority))]
         public String Priority { get; set; }
         [Required]
-        [EnumDataType (typeof(NewsCategory))]
+        [EnumDataType(typeof(NewsCategory))]
         public string Category { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
         public byte[]? DocFile { get; set; }
@@ -34,23 +31,19 @@ namespace ICTInfoHub.Model.Model
 
     }
 
-    public enum Priority{
+    public enum Priority
+    {
         high,
         medium,
         low
     }
     public enum NewsCategory
     {
-        department,
-        faculty
-    }
-    public enum Department
-    {
-        all,
-        computerScience,
-        informationTechnology,
-        infomatics,
-        computerSystemsEngineering
+        Announcement,
+        Academic,
+        Registration,
+        Event,
+        WIL
 
     }
 }

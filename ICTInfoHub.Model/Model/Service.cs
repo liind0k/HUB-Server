@@ -16,7 +16,6 @@ namespace ICTInfoHub.Model.Model
         public string Email { get; set; }
         public string Location { get; set; }
         public string Phone { get; set; }
-        [EnumDataType(typeof(Campus))]
         public int CampusId { get; set; }
         [ForeignKey(nameof(CampusId))]
         public Campus Campus { get; set; }

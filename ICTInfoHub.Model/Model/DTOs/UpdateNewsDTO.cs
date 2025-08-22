@@ -16,7 +16,6 @@ namespace ICTInfoHub.Model.Model.DTOs
         public string Category { get; set; }
         public IFormFile? formFile { get; set; }
         public int CampusId { get; set; }
-        [EnumDataType(typeof (Department))]
-        public string Department { get; set; }
+
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICTInfoHub.Model.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20250821083541_poiuy")]
-    partial class poiuy
+    [Migration("20250822084725_AOWAyoh")]
+    partial class AOWAyoh
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,66 @@ namespace ICTInfoHub.Model.Migrations
 
                     b.HasKey("CampusId");
 
+                    b.HasIndex("CampusName")
+                        .IsUnique();
+
                     b.ToTable("Campuses");
+                });
+
+            modelBuilder.Entity("ICTInfoHub.Model.Model.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CourseCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NQFLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("ICTInfoHub.Model.Model.Department", b =>
+                {
+                    b.Property<int>("DepartmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"));
+
+                    b.Property<int>("CampusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartmentId");
+
+                    b.HasIndex("CampusId");
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.News", b =>
@@ -92,10 +151,6 @@ namespace ICTInfoHub.Model.Migrations
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -190,7 +245,7 @@ namespace ICTInfoHub.Model.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("url")
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -199,6 +254,28 @@ namespace ICTInfoHub.Model.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Steps");
+                });
+
+            modelBuilder.Entity("ICTInfoHub.Model.Model.Course", b =>
+                {
+                    b.HasOne("ICTInfoHub.Model.Model.Department", "Department")
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("ICTInfoHub.Model.Model.Department", b =>
+                {
+                    b.HasOne("ICTInfoHub.Model.Model.Campus", "Campus")
+                        .WithMany("Departments")
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
                 });
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.News", b =>
@@ -249,9 +326,16 @@ namespace ICTInfoHub.Model.Migrations
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.Campus", b =>
                 {
+                    b.Navigation("Departments");
+
                     b.Navigation("News");
 
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("ICTInfoHub.Model.Model.Department", b =>
+                {
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.Service", b =>

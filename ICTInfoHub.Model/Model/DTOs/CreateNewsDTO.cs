@@ -19,9 +19,7 @@ namespace ICTInfoHub.Model.Model.DTOs
         public string Priority { get; set; }
         [Required]
         [EnumDataType (typeof(NewsCategory))]
-        public string Category { get; set; }
-        [EnumDataType(typeof(Department))]
-        public string Department { get; set; }    
+        public string Category { get; set; } 
         [Required]
         public int CampusId { get; set; }
         public IFormFile? FormFile { get; set; }

@@ -19,5 +19,7 @@ namespace ICTInfoHub.Model.Model
 
         public List<Service> Services { get; set; } = new List<Service>();
 
+        public List<Department> Departments { get; set; }   = new List<Department>();
+
     }
 }

@@ -45,7 +45,6 @@ namespace ICTInfoHub.Services.NewsServices
                         Category = createNews.Category,
                         DocFile = DocFile,
                         CreatedAt = DateTime.UtcNow,
-                        Department = createNews.Department,
                         AdminId = createNews.AdminId,
                         Admin = admin,
 
@@ -86,7 +85,6 @@ namespace ICTInfoHub.Services.NewsServices
 
                     News.Title = updateNews.Title;
                     News.Description = updateNews.Description;
-                    News.Department = updateNews.Department;
                     News.Campus = campus;
                     News.CampusId  = updateNews.CampusId;
                     News.Category = updateNews.Category;

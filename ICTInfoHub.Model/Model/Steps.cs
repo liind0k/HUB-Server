@@ -12,13 +12,12 @@ namespace ICTInfoHub.Model.Model
     {
         [Key]
         public int StepId { get; set; }
-
-     public Service service { get; set; }
         public int ServiceId { get; set; }
+        [ForeignKey(nameof(ServiceId))]
+        public Service service { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string OfficeNumber { get; set; }
-        public string url { get; set;}
+
 
     }
 }
