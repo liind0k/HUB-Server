@@ -23,6 +23,7 @@ namespace ICTInfoHub.Services.CampusServices
                 .Include(c => c.News)
                 .Include(c => c.Services)
                 .Include(c => c.Departments)
+                    .ThenInclude(d => d.Courses)
                 .FirstOrDefaultAsync(c => c.CampusId == CampusId);
         }
 
@@ -32,6 +33,7 @@ namespace ICTInfoHub.Services.CampusServices
                 .Include(c => c.News)
                 .Include(c => c.Services)
                 .Include(c => c.Departments)
+                    .ThenInclude(d => d.Courses)
                 .ToListAsync();
         }
     }

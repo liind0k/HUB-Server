@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ICTInfoHub.Model.Model
@@ -18,6 +19,7 @@ namespace ICTInfoHub.Model.Model
         public string NQFLevel { get; set; }
         public int DepartmentId { get; set; }
         [ForeignKey(nameof(DepartmentId))]
+        [JsonIgnore]
         public Department Department { get; set; } 
     }
 }
