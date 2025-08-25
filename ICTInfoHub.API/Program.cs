@@ -2,6 +2,8 @@ using ICTInfoHub.Model.Model;
 using Microsoft.EntityFrameworkCore;
 using ICTInfoHub.Services.AdminServices;
 using ICTInfoHub.Services.NewsServices;
+using ICTInfoHub.Services.CampusServices;
+using ICTInfoHub.Services.ServiceServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,8 @@ builder.Services.AddDbContext<AdminDbContext>(options =>
 });
 builder.Services.AddScoped<IAdminServices, AdminServices>();
 builder.Services.AddScoped<INewsServices, NewsServices>();
+builder.Services.AddScoped<IServiceServices, ServiceServices>();
+builder.Services.AddScoped<ICampusServices, CampusServices>();
 
 var app = builder.Build();
 

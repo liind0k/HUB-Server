@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ICTInfoHub.Model.Model
 {
@@ -23,6 +24,7 @@ namespace ICTInfoHub.Model.Model
         [Required]
         public int? CampusId { get; set; }
         [ForeignKey(nameof(CampusId))]
+        [JsonIgnore]
         public Campus? Campus { get; set; }
         [Required]
         public int AdminId { get; set; }

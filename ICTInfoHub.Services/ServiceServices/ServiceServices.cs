@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ICTInfoHub.Services.ServiceServices
 {
-    public class ServiceServices: IServiceServes
+    public class ServiceServices: IServiceServices
     {
         private readonly AdminDbContext _context;
 

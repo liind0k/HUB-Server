@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ICTInfoHub.Model.Model
 {
@@ -18,7 +19,7 @@ namespace ICTInfoHub.Model.Model
         public List<News> News { get; set; } = new List<News>();
 
         public List<Service> Services { get; set; } = new List<Service>();
-
+        
         public List<Department> Departments { get; set; }   = new List<Department>();
 
     }

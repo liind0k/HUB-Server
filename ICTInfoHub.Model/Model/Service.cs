@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 
 namespace ICTInfoHub.Model.Model
@@ -18,6 +19,7 @@ namespace ICTInfoHub.Model.Model
         public string Phone { get; set; }
         public int CampusId { get; set; }
         [ForeignKey(nameof(CampusId))]
+        [JsonIgnore]
         public Campus Campus { get; set; }
         [Required]
         public List<Steps> Steps { get; set; }

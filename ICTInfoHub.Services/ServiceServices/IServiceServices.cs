@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ICTInfoHub.Services.ServiceServices
 {
-    public interface IServiceServes
+    public interface IServiceServices
     {
         public Task<List<Service>> getServicesByCategory([EnumDataType(typeof(Category))]string category);
         Task<List<Service>> getAllServices();
