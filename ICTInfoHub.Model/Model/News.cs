@@ -10,9 +10,9 @@ namespace ICTInfoHub.Model.Model
         [Key]
         public int NewsId { get; set; }
         [Required]
-        public string Title { get; set; }
+        public string NewsTitle { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string NewsDescription { get; set; }
         [Required]
         [EnumDataType(typeof(Priority))]
         public String Priority { get; set; }

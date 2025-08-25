@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 namespace ICTInfoHub.API.Controllers.NewsController
 {
     [ApiController]
-    [Route("/news")]
+    [Route("/News")]
     public class NewsController : ControllerBase
     {
         INewsServices _newsServices;

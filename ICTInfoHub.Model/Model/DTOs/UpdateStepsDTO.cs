@@ -10,6 +10,6 @@ namespace ICTInfoHub.Model.Model.DTOs
     {
         public int ServiceId { get; set; }
 
-        public List<Steps> Steps { get; set; }
+        public Steps Step { get; set; }
     }
 }

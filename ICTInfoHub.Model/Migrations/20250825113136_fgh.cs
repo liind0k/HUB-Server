@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class pqop : Migration
+    public partial class fgh : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,8 +66,8 @@ namespace ICTInfoHub.Model.Migrations
                 {
                     NewsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NewsTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NewsDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Priority = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -101,9 +101,9 @@ namespace ICTInfoHub.Model.Migrations
                     ServiceTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ServiceUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServicePhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CampusId = table.Column<int>(type: "int", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -148,8 +148,8 @@ namespace ICTInfoHub.Model.Migrations
                     StepId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    StepsTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StepsDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

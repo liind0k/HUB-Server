@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ICTInfoHub.Model.Model
@@ -14,9 +15,10 @@ namespace ICTInfoHub.Model.Model
         public int StepId { get; set; }
         public int ServiceId { get; set; }
         [ForeignKey(nameof(ServiceId))]
+        [JsonIgnore]
         public Service service { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string StepsTitle { get; set; }
+        public string StepsDescription { get; set; }
 
 
     }

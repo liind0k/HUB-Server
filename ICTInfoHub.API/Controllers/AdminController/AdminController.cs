@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ICTInfoHub.API.Controllers.AdminController
 {
     [ApiController]
-    [Route("/admin")]
+    [Route("/Admin")]
     public class AdminController : ControllerBase
     {
         IAdminServices _adminServices;

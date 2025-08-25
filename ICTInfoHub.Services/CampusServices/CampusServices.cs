@@ -22,6 +22,7 @@ namespace ICTInfoHub.Services.CampusServices
             return await _adminDbContext.Campuses
                 .Include(c => c.News)
                 .Include(c => c.Services)
+                    .ThenInclude(s => s.Steps)
                 .Include(c => c.Departments)
                     .ThenInclude(d => d.Courses)
                 .FirstOrDefaultAsync(c => c.CampusId == CampusId);

@@ -14,9 +14,9 @@ namespace ICTInfoHub.Model.Model
         [Required]
         public string ServiceDescription { get; set; }
         public string ServiceUrl { get; set; }
-        public string Email { get; set; }
-        public string Location { get; set; }
-        public string Phone { get; set; }
+        public string ServiceEmail { get; set; }
+        public string ServiceLocation { get; set; }
+        public string ServicePhone { get; set; }
         public int CampusId { get; set; }
         [ForeignKey(nameof(CampusId))]
         [JsonIgnore]
@@ -29,6 +29,7 @@ namespace ICTInfoHub.Model.Model
     }
     public enum Category
     {
+        all,
         senior,
         newcomer
     }

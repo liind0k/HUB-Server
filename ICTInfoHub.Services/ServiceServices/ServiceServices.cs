@@ -19,7 +19,7 @@ namespace ICTInfoHub.Services.ServiceServices
         }
         public async Task<List<Service>> getAllServices()
         {
-            List<Service> services = await _context.Services.ToListAsync();
+            List<Service> services = await _context.Services.Include(s => s.Steps).ToListAsync();
             return services;
         }
         public async Task<List<Service>> getServicesByCampus(int campusId)
@@ -42,30 +42,97 @@ namespace ICTInfoHub.Services.ServiceServices
             }
             return res;
         }
-        public async Task updateServiceContact(UpdateServiceContactsDTO updateContacts)
+        public async Task<bool> updateServicePhone(UpdateServiceContactsDTO updateContacts)
         {
             var service = await _context.Services.FindAsync(updateContacts.Id);
 
             if (service != null)
             {
-                service.Phone = updateContacts.phone;
-                service.Email = updateContacts.email;
-                service.Location = updateContacts.location;
-
+                service.ServicePhone = updateContacts.inputString;
                 _context.Services.Update(service);
-                _context.SaveChanges();
-
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;  
             }
 
         }
-        public async Task updateServiceSteps(UpdateStepsDTO updateStepsDTO)
+        public async Task<bool> updateServiceEmail(UpdateServiceContactsDTO updateContacts)
+        {
+            var service = await _context.Services.FindAsync(updateContacts.Id);
+
+            if (service != null)
+            {
+                service.ServicePhone = updateContacts.inputString;
+                _context.Services.Update(service);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> updateServiceLocation(UpdateServiceContactsDTO updateContacts)
+        {
+            var service = await _context.Services.FindAsync(updateContacts.Id);
+
+            if (service != null)
+            {
+                service.ServicePhone = updateContacts.inputString;
+                _context.Services.Update(service);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> updateServiceSteps(UpdateStepsDTO updateStepsDTO)
         {
             var service = _context.Services.Find(updateStepsDTO.ServiceId);
             if (service != null)
             {
-                service.Steps = updateStepsDTO.Steps;
-                _context.Services.Update(service);
-                _context.SaveChanges();
+                Steps step = updateStepsDTO.Step;
+                var findStep = await _context.Steps.FindAsync(step.StepId);
+
+                if(findStep != null)
+                {
+                    findStep.StepsTitle = step.StepsTitle;
+                    findStep.StepsDescription = step.StepsDescription;
+                    await _context.Services.FindAsync(step.StepId);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public async Task<Service> getService(int id)
+        {
+            var service = await  _context.Services
+                                .Include(s => s.Steps)
+                                .FirstOrDefaultAsync(s => s.ServiceId==id);
+
+            if (service != null)
+            {
+                return service;
+            }
+            else
+            {
+                return null;
             }
         }
     }

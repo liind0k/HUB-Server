@@ -17,5 +17,7 @@ namespace ICTInfoHub.Model.Model
         [Required]
         public string Password { get; set; }
 
+        public ICollection<News> News { get; set; }
+
     }
 }

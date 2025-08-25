@@ -37,8 +37,8 @@ namespace ICTInfoHub.Services.NewsServices
 
                     var news = new News()
                     {
-                        Title = createNews.Title,
-                        Description = createNews.Description,
+                        NewsTitle = createNews.Title,
+                        NewsDescription = createNews.Description,
                         Priority = createNews.Priority,
                         Campus = campus,
                         CampusId = createNews.CampusId,
@@ -83,8 +83,8 @@ namespace ICTInfoHub.Services.NewsServices
                     }
                     var campus = _context.Campuses.Find(updateNews.CampusId);
 
-                    News.Title = updateNews.Title;
-                    News.Description = updateNews.Description;
+                    News.NewsTitle = updateNews.Title;
+                    News.NewsDescription = updateNews.Description;
                     News.Campus = campus;
                     News.CampusId  = updateNews.CampusId;
                     News.Category = updateNews.Category;

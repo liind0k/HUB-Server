@@ -13,9 +13,12 @@ namespace ICTInfoHub.Services.ServiceServices
     {
         public Task<List<Service>> getServicesByCategory([EnumDataType(typeof(Category))]string category);
         Task<List<Service>> getAllServices();
+        Task<Service> getService(int id);
         Task<List<Service>> getServicesByCampus(int campusId);
         Task<List<Service>> getServicesByCampusAndCategory(int campusId,string category);
-        Task updateServiceContact(UpdateServiceContactsDTO serviceContactsDTO);
-        Task updateServiceSteps(UpdateStepsDTO updateStepsDTO);
+        Task<bool> updateServicePhone(UpdateServiceContactsDTO serviceContactsDTO);
+        Task<bool> updateServiceEmail(UpdateServiceContactsDTO serviceContactsDTO);
+        Task<bool> updateServiceLocation(UpdateServiceContactsDTO serviceContactsDTO);
+        Task<bool> updateServiceSteps(UpdateStepsDTO updateStepsDTO);
     }
 }
