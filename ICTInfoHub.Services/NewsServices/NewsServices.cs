@@ -26,31 +26,36 @@ namespace ICTInfoHub.Services.NewsServices
             {
                 try
                 {
-                    byte[] DocFile = null;
-                    if (createNews.FormFile != null)
-                    {
-                        var Document = createNews.FormFile;
-                        DocFile = await convertToByte(Document);
+                    var campuses = createNews.CampusIds;
+                    
+                    for (int x =0;x<campuses.Count;x++) {
+                        byte[] DocFile = null;
+                        if (createNews.FormFile != null)
+                        {
+                            var Document = createNews.FormFile;
+                            DocFile = await convertToByte(Document);
 
+                        }
+                        var campus = await _context.Campuses.FindAsync(campuses[x]);
+
+                        var news = new News()
+                        {
+                            NewsTitle = createNews.Title,
+                            NewsDescription = createNews.Description,
+                            Priority = createNews.Priority,
+                            Campus = campus,
+                            CampusId = campuses[x],
+                            Category = createNews.Category,
+                            DocFile = DocFile,
+                            CreatedAt = DateTime.UtcNow,
+                            AdminId = createNews.AdminId,
+                            Admin = admin,
+
+                        };
+                        _context.Add<News>(news);
+                        _context.SaveChanges();
+                        
                     }
-                    var campus = await _context.Campuses.FindAsync(createNews.CampusId);
-
-                    var news = new News()
-                    {
-                        NewsTitle = createNews.Title,
-                        NewsDescription = createNews.Description,
-                        Priority = createNews.Priority,
-                        Campus = campus,
-                        CampusId = createNews.CampusId,
-                        Category = createNews.Category,
-                        DocFile = DocFile,
-                        CreatedAt = DateTime.UtcNow,
-                        AdminId = createNews.AdminId,
-                        Admin = admin,
-
-                    };
-                    _context.Add<News>(news);
-                    _context.SaveChanges();
                     return true;
                 }
                 catch (Exception ex)

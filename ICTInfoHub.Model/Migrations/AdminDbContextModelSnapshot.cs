@@ -270,9 +270,9 @@ namespace ICTInfoHub.Model.Migrations
             modelBuilder.Entity("ICTInfoHub.Model.Model.News", b =>
                 {
                     b.HasOne("ICTInfoHub.Model.Model.Admin", "Admin")
-                        .WithMany("News")
+                        .WithMany()
                         .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ICTInfoHub.Model.Model.Campus", "Campus")
@@ -306,11 +306,6 @@ namespace ICTInfoHub.Model.Migrations
                         .IsRequired();
 
                     b.Navigation("service");
-                });
-
-            modelBuilder.Entity("ICTInfoHub.Model.Model.Admin", b =>
-                {
-                    b.Navigation("News");
                 });
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.Campus", b =>

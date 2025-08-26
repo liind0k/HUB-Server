@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class fgh : Migration
+    public partial class werty : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,7 +83,7 @@ namespace ICTInfoHub.Model.Migrations
                         column: x => x.AdminId,
                         principalTable: "Admins",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_News_Campuses_CampusId",
                         column: x => x.CampusId,

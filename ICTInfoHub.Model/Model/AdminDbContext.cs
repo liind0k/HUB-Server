@@ -28,12 +28,6 @@ namespace ICTInfoHub.Model.Model
                 .HasConversion<string>(); 
 
             modelBuilder.Entity<News>()
-                .HasOne(n => n.Admin)
-                .WithMany(a => a.News)
-                .HasForeignKey(n => n.AdminId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<News>()
                 .HasOne(n => n.Campus)
                 .WithMany(c => c.News)
                 .HasForeignKey(n => n.CampusId)
