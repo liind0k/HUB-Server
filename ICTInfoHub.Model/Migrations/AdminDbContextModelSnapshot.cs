@@ -152,6 +152,9 @@ namespace ICTInfoHub.Model.Migrations
                     b.Property<byte[]>("DocFile")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit");
+
                     b.Property<string>("NewsDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

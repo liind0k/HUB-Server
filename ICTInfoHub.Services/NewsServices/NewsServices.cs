@@ -50,6 +50,7 @@ namespace ICTInfoHub.Services.NewsServices
                             CreatedAt = DateTime.UtcNow,
                             AdminId = createNews.AdminId,
                             Admin = admin,
+                            IsVisible = false,
 
                         };
                         _context.Add<News>(news);
@@ -163,6 +164,35 @@ namespace ICTInfoHub.Services.NewsServices
             await formFile.CopyToAsync(incomeStream);
             byte[] DocFile = incomeStream.ToArray();
             return DocFile;
+        }
+        public async Task<bool> updateVisibility(int NewsId)
+        {
+            var news = await _context.News.FindAsync(NewsId);
+            
+            if(news != null)
+            {
+                if (news.IsVisible)
+                {
+                    news.IsVisible = false;
+                }
+                else
+                {
+                    news.IsVisible = true;
+                }
+                
+                _context.News.Update(news);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public async Task<News> getNews(int NewsId)
+        {
+            var news = await _context.News.FindAsync(NewsId);
+            return news;
         }
     }
 }

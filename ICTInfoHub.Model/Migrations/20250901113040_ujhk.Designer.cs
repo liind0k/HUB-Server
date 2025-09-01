@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICTInfoHub.Model.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20250826091814_kjh")]
-    partial class kjh
+    [Migration("20250901113040_ujhk")]
+    partial class ujhk
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,6 +154,9 @@ namespace ICTInfoHub.Model.Migrations
 
                     b.Property<byte[]>("DocFile")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit");
 
                     b.Property<string>("NewsDescription")
                         .IsRequired()

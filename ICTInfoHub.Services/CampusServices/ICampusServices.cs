@@ -11,5 +11,7 @@ namespace ICTInfoHub.Services.CampusServices
     {
         Task<Campus> getCampus(int id);
         Task<List<Campus>> getCampusList();
+        Task<Campus> adminGetCampus(int id);
+        Task<List<Campus>> adminGetCampusList();
     }
 }

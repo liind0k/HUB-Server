@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class kjh : Migration
+    public partial class ujhk : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,7 +73,8 @@ namespace ICTInfoHub.Model.Migrations
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DocFile = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CampusId = table.Column<int>(type: "int", nullable: false),
-                    AdminId = table.Column<int>(type: "int", nullable: false)
+                    AdminId = table.Column<int>(type: "int", nullable: false),
+                    IsVisible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

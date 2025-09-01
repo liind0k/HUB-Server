@@ -51,5 +51,40 @@ namespace ICTInfoHub.API.Controllers.CampusController
                 return StatusCode(400);
             }
         }
+        [HttpGet("adminGetCampus")]
+        public async Task<IActionResult> adminGetCampus(int CampusId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var campus = await _campusServices.adminGetCampus(CampusId);
+
+            if (campus != null)
+            {
+                return Ok(new { data = campus });
+            }
+            else
+            {
+                return StatusCode(400);
+            }
+        }
+
+        [HttpGet("adminGetAllCampus")]
+        public async Task<IActionResult> adminGetAllCampus()
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var campuses = await _campusServices.adminGetCampusList();
+
+            if (campuses != null)
+            {
+                return Ok(new { data = campuses });
+            }
+            else
+            {
+                return StatusCode(400);
+            }
+        }
     }
 }

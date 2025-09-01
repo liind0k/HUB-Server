@@ -90,6 +90,24 @@ namespace ICTInfoHub.API.Controllers.NewsController
             }
         }
 
+        [HttpGet("getNews")]
+        public async Task<IActionResult> getNews(int newsId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var res = await _newsServices.getNews(newsId);
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
+            else
+            {
+                return StatusCode(400);
+            }
+        }
+
         [HttpGet("getNewsByCampus")]
         public async Task<IActionResult> getNewsByCampus(int CampusId)
         {
@@ -105,6 +123,21 @@ namespace ICTInfoHub.API.Controllers.NewsController
             else
             {
                 return StatusCode(400);  
+            }
+        }
+
+        [HttpPut("updateAvailability")]
+        public async Task<IActionResult> updateAvailability(int NewsId)
+        {
+            var res = await _newsServices.updateVisibility(NewsId);
+
+            if (res)
+            {
+                return StatusCode(200);
+            }
+            else
+            {
+                return StatusCode(400);
             }
         }
 

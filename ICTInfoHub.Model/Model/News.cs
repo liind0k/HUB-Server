@@ -30,6 +30,8 @@ namespace ICTInfoHub.Model.Model
         public int AdminId { get; set; }
         [ForeignKey(nameof(AdminId))]
         public Admin Admin { get; set; }
+        [Required]
+        public bool IsVisible { get; set; }
 
     }
 
