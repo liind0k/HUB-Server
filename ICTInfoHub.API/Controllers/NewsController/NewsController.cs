@@ -126,7 +126,7 @@ namespace ICTInfoHub.API.Controllers.NewsController
             }
         }
 
-        [HttpPut("updateAvailability")]
+        [HttpPut("updateVisibility")]
         public async Task<IActionResult> updateAvailability(int NewsId)
         {
             var res = await _newsServices.updateVisibility(NewsId);
