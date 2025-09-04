@@ -14,10 +14,8 @@ namespace ICTInfoHub.Model.Model
         [Key]
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
-        public int CampusId { get; set; }
-        [ForeignKey(nameof(CampusId))]
         [JsonIgnore]
-        public Campus Campus { get; set; }
-        public List<Course> Courses { get; set; } = new List<Course>();  
+        public ICollection<Campus> Campus { get; set; }
+        public ICollection<Course> Courses { get; set; } = new List<Course>();  
     }
 }

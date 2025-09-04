@@ -16,11 +16,11 @@ namespace ICTInfoHub.Model.Model
         [MaxLength(100)]
         public string CampusName { get; set; }
 
-        public List<News> News { get; set; } = new List<News>();
+        public ICollection<News> News { get; set; } = new List<News>();
 
-        public List<Service> Services { get; set; } = new List<Service>();
+        public ICollection<Service> Services { get; set; } = new List<Service>();
         
-        public List<Department> Departments { get; set; }   = new List<Department>();
+        public ICollection<Department> Departments { get; set; }   = new List<Department>();
 
     }
 }

@@ -20,7 +20,7 @@ namespace ICTInfoHub.Model.Model
         public int CampusId { get; set; }
         [ForeignKey(nameof(CampusId))]
         [JsonIgnore]
-        public Campus Campus { get; set; }
+        public List<Campus> Campus { get; set; }
         [Required]
         public List<Steps> Steps { get; set; }
         [Required]

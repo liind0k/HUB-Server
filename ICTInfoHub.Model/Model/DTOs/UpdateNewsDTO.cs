@@ -15,7 +15,7 @@ namespace ICTInfoHub.Model.Model.DTOs
         public string Priority { get; set; }       
         public string Category { get; set; }
         public IFormFile? formFile { get; set; }
-        public int CampusId { get; set; }
+        public List<int> CampusIds { get; set; }
 
     }
 }

@@ -18,61 +18,54 @@ namespace ICTInfoHub.Services.NewsServices
         {
             _context = context;
         }
-        public async Task<bool> addNews(CreateNewsDTO createNews)
+        public async Task<bool> addNews(CreateNewsDTO dto)
         {
-            var admin = await _context.Admins.FindAsync(createNews.AdminId);
+            var admin = await _context.Admins.FindAsync(dto.AdminId);
 
             if (admin != null)
             {
-                try
-                {
-                    var campuses = createNews.CampusIds;
-                    
-                    for (int x =0;x<campuses.Count;x++) {
-                        byte[] DocFile = null;
-                        if (createNews.FormFile != null)
-                        {
-                            var Document = createNews.FormFile;
-                            DocFile = await convertToByte(Document);
+                
+                    Byte[] docFile = null;
 
-                        }
-                        var campus = await _context.Campuses.FindAsync(campuses[x]);
-
-                        var news = new News()
-                        {
-                            NewsTitle = createNews.Title,
-                            NewsDescription = createNews.Description,
-                            Priority = createNews.Priority,
-                            Campus = campus,
-                            CampusId = campuses[x],
-                            Category = createNews.Category,
-                            DocFile = DocFile,
-                            CreatedAt = DateTime.UtcNow,
-                            AdminId = createNews.AdminId,
-                            Admin = admin,
-                            IsVisible = false,
-
-                        };
-                        _context.Add<News>(news);
-                        _context.SaveChanges();
-                        
+                    if (dto.FormFile!= null)
+                    {
+                        docFile = await convertToByte(dto.FormFile);
                     }
+                    var news = new News
+                    {
+                        AdminId = dto.AdminId,
+                        NewsTitle = dto.Title,
+                        NewsDescription = dto.Description,
+                        IsVisible = false,
+                        Priority = dto.Priority,
+                        Category = dto.Category,
+                        DocFile = docFile,
+                        Campuses = new List<Campus>(),
+                    };
+                    if (dto.CampusIds != null && dto.CampusIds.Any())
+                    {
+                        var campuses = await _context.Campuses
+                                                     .Where(c => dto.CampusIds.Contains(c.CampusId))
+                                                     .ToListAsync();
+                        foreach (var campus in campuses)
+                        {
+                            news.Campuses.Add(campus);
+                        }
+                    }
+
+                    _context.News.Add(news);
+                    await _context.SaveChangesAsync();
                     return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    return false;
-                }
+                
             }
             else
             {
                 return false;
             }
         }
-        public async Task<bool> updateNews(UpdateNewsDTO updateNews)
+        public async Task<bool> updateNews(UpdateNewsDTO dto)
         {
-            var News = await _context.News.FindAsync(updateNews.NewsId);
+            var News = await _context.News.FindAsync(dto.NewsId);
 
             if (News == null)
             {
@@ -82,19 +75,29 @@ namespace ICTInfoHub.Services.NewsServices
             {
                 try
                 {
-                    if (updateNews.formFile != null)
+                    if (dto.formFile != null)
                     {
-                        byte[] document = await convertToByte(updateNews.formFile);
+                        Byte[] document = await convertToByte(dto.formFile);
                         News.DocFile = document;
                     }
-                    var campus = _context.Campuses.Find(updateNews.CampusId);
 
-                    News.NewsTitle = updateNews.Title;
-                    News.NewsDescription = updateNews.Description;
-                    News.Campus = campus;
-                    News.CampusId  = updateNews.CampusId;
-                    News.Category = updateNews.Category;
-                    News.Priority = updateNews.Priority;
+                    News.NewsTitle = dto.Title;
+                    News.NewsDescription = dto.Description;
+                    News.Category = dto.Category;
+                    News.Priority = dto.Priority;
+
+                    News.Campuses.Clear();
+                    if (dto.CampusIds != null && dto.CampusIds.Any())
+                    {
+                        var campuses = await _context.Campuses
+                                                     .Where(c => dto.CampusIds.Contains(c.CampusId))
+                                                     .ToListAsync();
+                        foreach (var campus in campuses)
+                        {
+                            News.Campuses.Add(campus);
+                        }
+                    }
+
                     _context.Update(News);
                     _context.SaveChanges();
                     return true;
@@ -137,26 +140,20 @@ namespace ICTInfoHub.Services.NewsServices
         }
         public async Task<List<News>> getNewsByCampus(int CampusId)
         {
-            List<News> News = await _context.News.Select(a => a).Where(a => a.CampusId ==  CampusId).ToListAsync();
-            return News;
-        }
-        public async Task<bool> tagCampus(TagCampusDTO tagCampusDTO)
-        {
-            var News = await _context.News.FindAsync(tagCampusDTO.newsId);
-
-            if (News == null)
+            
+            Campus Campus = await _context.Campuses
+                            .Include( c => c.News)
+                            .FirstOrDefaultAsync(c => c.CampusId ==CampusId);
+            if(Campus == null)
             {
-                return false;
+                return null;
             }
             else
             {
-                var campus = await _context.Campuses.FindAsync(tagCampusDTO.campusId);
-                News.Campus = campus;
-                _context.Update(News);
-                _context.SaveChanges();
-
-                return true;
+                List<News> news =  Campus.News.ToList();
+                return news;
             }
+            
         }
         public async Task<Byte[]> convertToByte(IFormFile formFile)
         {

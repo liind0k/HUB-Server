@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class ujhk : Migration
+    public partial class wenda : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,18 +46,11 @@ namespace ICTInfoHub.Model.Migrations
                 {
                     DepartmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CampusId = table.Column<int>(type: "int", nullable: false)
+                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departments", x => x.DepartmentId);
-                    table.ForeignKey(
-                        name: "FK_Departments_Campuses_CampusId",
-                        column: x => x.CampusId,
-                        principalTable: "Campuses",
-                        principalColumn: "CampusId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +65,6 @@ namespace ICTInfoHub.Model.Migrations
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DocFile = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    CampusId = table.Column<int>(type: "int", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: false),
                     IsVisible = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -84,12 +76,6 @@ namespace ICTInfoHub.Model.Migrations
                         column: x => x.AdminId,
                         principalTable: "Admins",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_News_Campuses_CampusId",
-                        column: x => x.CampusId,
-                        principalTable: "Campuses",
-                        principalColumn: "CampusId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -120,6 +106,30 @@ namespace ICTInfoHub.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CampusDepartment",
+                columns: table => new
+                {
+                    CampusId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CampusDepartment", x => new { x.CampusId, x.DepartmentId });
+                    table.ForeignKey(
+                        name: "FK_CampusDepartment_Campuses_CampusId",
+                        column: x => x.CampusId,
+                        principalTable: "Campuses",
+                        principalColumn: "CampusId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CampusDepartment_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
@@ -139,6 +149,30 @@ namespace ICTInfoHub.Model.Migrations
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CampusNews",
+                columns: table => new
+                {
+                    CampusId = table.Column<int>(type: "int", nullable: false),
+                    NewsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CampusNews", x => new { x.CampusId, x.NewsId });
+                    table.ForeignKey(
+                        name: "FK_CampusNews_Campuses_CampusId",
+                        column: x => x.CampusId,
+                        principalTable: "Campuses",
+                        principalColumn: "CampusId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CampusNews_News_NewsId",
+                        column: x => x.NewsId,
+                        principalTable: "News",
+                        principalColumn: "NewsId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -164,10 +198,20 @@ namespace ICTInfoHub.Model.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CampusDepartment_DepartmentId",
+                table: "CampusDepartment",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Campuses_CampusName",
                 table: "Campuses",
                 column: "CampusName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CampusNews_NewsId",
+                table: "CampusNews",
+                column: "NewsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_DepartmentId",
@@ -175,19 +219,9 @@ namespace ICTInfoHub.Model.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Departments_CampusId",
-                table: "Departments",
-                column: "CampusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_News_AdminId",
                 table: "News",
                 column: "AdminId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_News_CampusId",
-                table: "News",
-                column: "CampusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_CampusId",
@@ -204,22 +238,28 @@ namespace ICTInfoHub.Model.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "CampusDepartment");
 
             migrationBuilder.DropTable(
-                name: "News");
+                name: "CampusNews");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "Steps");
 
             migrationBuilder.DropTable(
+                name: "News");
+
+            migrationBuilder.DropTable(
                 name: "Departments");
 
             migrationBuilder.DropTable(
-                name: "Admins");
+                name: "Services");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "Campuses");

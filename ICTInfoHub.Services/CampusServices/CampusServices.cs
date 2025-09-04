@@ -42,7 +42,7 @@ namespace ICTInfoHub.Services.CampusServices
                 .ToListAsync();
         }
     
-    public async Task<Campus> getCampus(int CampusId)
+        public async Task<Campus> getCampus(int CampusId)
         {
             var result = await _adminDbContext.Campuses
                 .Include(c => c.News.Where(n => n.IsVisible))

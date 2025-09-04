@@ -21,8 +21,8 @@ namespace ICTInfoHub.Model.Model.DTOs
         [EnumDataType (typeof(NewsCategory))]
         public string Category { get; set; } 
         [Required]
-        public List<int> CampusIds { get; set; }
+        public List<int> CampusIds { get; set; } = new List<int>();
         public IFormFile? FormFile { get; set; }
-        public byte[]? Document;
+        public Byte[]? Document;
     }
 }

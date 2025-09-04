@@ -5,8 +5,6 @@ namespace ICTInfoHub.Model.Model
     public class AdminDbContext : DbContext
     {
         public AdminDbContext(DbContextOptions<AdminDbContext> options) : base(options) { }
-
-        // DbSets
         public DbSet<Admin> Admins { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Service> Services { get; set; }
@@ -27,12 +25,6 @@ namespace ICTInfoHub.Model.Model
                 .Property(n => n.Category)
                 .HasConversion<string>(); 
 
-            modelBuilder.Entity<News>()
-                .HasOne(n => n.Campus)
-                .WithMany(c => c.News)
-                .HasForeignKey(n => n.CampusId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             modelBuilder.Entity<Service>()
                 .HasOne(s => s.Campus)
                 .WithMany(c => c.Services)
@@ -40,17 +32,42 @@ namespace ICTInfoHub.Model.Model
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Department>()
-                .HasOne(d => d.Campus)
+                .HasMany(d => d.Campus)
                 .WithMany(c => c.Departments)
-                .HasForeignKey(d => d.CampusId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .UsingEntity<Dictionary<string, object>>(
+            "CampusDepartment",
+            j => j.HasOne<Campus>()
+                  .WithMany()
+                  .HasForeignKey("CampusId")
+                  .OnDelete(DeleteBehavior.Cascade),
+            j => j.HasOne<Department>()
+                  .WithMany()
+                  .HasForeignKey("DepartmentId")
+                  .OnDelete(DeleteBehavior.Cascade),
+            j =>
+            {
+                j.HasKey("CampusId", "DepartmentId");
+                j.ToTable("CampusDepartment");
+            });
 
-            modelBuilder.Entity<Course>()
-                .HasOne(c => c.Department)
-                .WithMany(d => d.Courses)
-                .HasForeignKey(c => c.DepartmentId)
-                .OnDelete(DeleteBehavior.Cascade);
-
+            modelBuilder.Entity<News>()
+                .HasMany(d => d.Campuses)
+                .WithMany(c => c.News)
+                .UsingEntity<Dictionary<string, object>>(
+            "CampusNews",
+            j => j.HasOne<Campus>()
+                  .WithMany()
+                  .HasForeignKey("CampusId")  
+                  .OnDelete(DeleteBehavior.Cascade),
+            j => j.HasOne<News>()
+                  .WithMany()
+                  .HasForeignKey("NewsId")   
+                  .OnDelete(DeleteBehavior.Cascade),
+            j =>
+            {
+                j.HasKey("CampusId", "NewsId");   
+                j.ToTable("CampusNews");          
+            });
             modelBuilder.Entity<Campus>()
                 .HasIndex(c => c.CampusName)
                 .IsUnique();

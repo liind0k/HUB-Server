@@ -22,10 +22,8 @@ namespace ICTInfoHub.Model.Model
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
         public byte[]? DocFile { get; set; }
         [Required]
-        public int? CampusId { get; set; }
-        [ForeignKey(nameof(CampusId))]
         [JsonIgnore]
-        public Campus? Campus { get; set; }
+        public ICollection<Campus?> Campuses { get; set; } = new List<Campus?>();
         [Required]
         public int AdminId { get; set; }
         [ForeignKey(nameof(AdminId))]
