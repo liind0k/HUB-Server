@@ -20,12 +20,54 @@ namespace ICTInfoHub.Services.CampusServices
         public async Task<Campus> adminGetCampus(int CampusId)
         {
             var result = await _adminDbContext.Campuses
-                .Include(c => c.News)
-                .Include(c => c.Services)
-                    .ThenInclude(s => s.Steps)
-                .Include(c => c.Departments)
-                    .ThenInclude(d => d.Courses)
-                .FirstOrDefaultAsync(c => c.CampusId == CampusId);
+                .Where(c => c.CampusId == CampusId)
+                .Select(c => new Campus()
+                {
+                    CampusId = c.CampusId,
+                    CampusName = c.CampusName,
+                    
+                    News = c.News.Select(n => new News()
+                    { 
+                                NewsId = n.NewsId,
+                                NewsTitle = n.NewsTitle,
+                                NewsDescription = n.NewsDescription })
+                            .ToList(),
+
+                    CampusServices = c.CampusServices.Select(cs => new  CampusService()
+                    {
+                            CampusServiceId = cs.CampusServiceId, 
+                            service = new Service()
+                        {
+                               ServiceTitle = cs.service.ServiceTitle,
+                               ServiceDescription = cs.service.ServiceDescription,
+                               ServiceUrl = cs.service.ServiceUrl
+                        },
+                        Email = cs.Email,
+                        Location = cs.Location,
+                        Phone = cs.Phone,
+                        Steps = cs.Steps.Select(s => new Steps() 
+                        {
+                            StepId = s.StepId,
+                            StepsTitle = s.StepsTitle,
+                            StepsDescription = s.StepsDescription,
+                        }).ToList()
+                    }).ToList(),
+
+                Departments = c.Departments.Select(d => new  Department
+                {
+                    DepartmentId = d.DepartmentId, 
+                    DepartmentName = d.DepartmentName,
+                    
+                    Courses = d.Courses.Select(c => new Course()
+                    {
+                        CourseCode = c.CourseCode,
+                        CourseName = c.CourseName,
+                        NQFLevel = c.NQFLevel,
+                        Duration = c.Duration
+                    }).ToList()
+                }).ToList()
+                }).FirstOrDefaultAsync();
+                
             return result;
 
 
@@ -33,38 +75,169 @@ namespace ICTInfoHub.Services.CampusServices
 
         public async Task<List<Campus>> adminGetCampusList()
         {
-            return await _adminDbContext.Campuses
-                .Include(c => c.News)
-                .Include(c => c.Services)
-                    .ThenInclude(s => s.Steps)
-                .Include(c => c.Departments)
-                    .ThenInclude(d => d.Courses)
-                .ToListAsync();
+            var campuses = await _adminDbContext.Campuses
+                .Select(c => new Campus() 
+                {
+                    CampusId = c.CampusId,
+                    CampusName = c.CampusName,
+
+                    News = c.News.Select(n => new News() 
+                    {
+                        NewsId = n.NewsId,
+                        NewsTitle = n.NewsTitle,
+                        NewsDescription = n.NewsDescription,
+                        Category = n.Category,
+                        Priority = n.Priority,
+                        CreatedAt = n.CreatedAt,
+                    })
+                     .ToList(),
+
+                    CampusServices = c.CampusServices.Select(cs => new CampusService()
+                    {
+                        CampusServiceId = cs.CampusServiceId,
+                        service = new Service() 
+                        {
+                            ServiceTitle = cs.service.ServiceTitle,
+                            ServiceDescription = cs.service.ServiceDescription,
+                            ServiceUrl = cs.service.ServiceUrl
+                        },
+                        Email = cs.Email,
+                        Location = cs.Location,
+                        Phone = cs.Phone,
+                        Steps = cs.Steps.Select(s => new Steps()
+                        {
+                            StepId = s.StepId,
+                            StepsTitle = s.StepsTitle,
+                            StepsDescription = s.StepsDescription,
+                        }).ToList()
+                    }).ToList(),
+
+                    Departments = c.Departments.Select(d => new Department()
+                    {
+                        DepartmentId = d.DepartmentId,
+                        DepartmentName = d.DepartmentName,
+
+                        Courses = d.Courses.Select(c => new Course()
+                        {
+                            CourseCode = c.CourseCode,
+                            CourseName = c.CourseName,
+                            NQFLevel = c.NQFLevel,
+                            Duration = c.Duration
+                        }).ToList()
+                    }).ToList()
+                }).ToListAsync();
+
+            return campuses;
         }
     
         public async Task<Campus> getCampus(int CampusId)
         {
             var result = await _adminDbContext.Campuses
-                .Include(c => c.News.Where(n => n.IsVisible))
-                .Include(c => c.Services)
-                    .ThenInclude(s => s.Steps)
-                .Include(c => c.Departments)
-                    .ThenInclude(d => d.Courses)
-                .FirstOrDefaultAsync(c => c.CampusId == CampusId);
-            return result;
+                .Where(c => c.CampusId == CampusId)
+                .Select(c => new Campus()
+                {
+                    CampusId = c.CampusId,
+                    CampusName = c.CampusName,
 
+                    News = c.News.Where(n => n.IsVisible).Select(n => new News()
+                    {
+                        NewsId = n.NewsId,
+                        NewsTitle = n.NewsTitle,
+                        NewsDescription = n.NewsDescription
+                    })
+                            .ToList(),
+
+                    CampusServices = c.CampusServices.Select(cs => new CampusService()
+                    {
+                        CampusServiceId = cs.CampusServiceId,
+                        service = new Service()
+                        {
+                            ServiceTitle = cs.service.ServiceTitle,
+                            ServiceDescription = cs.service.ServiceDescription,
+                            ServiceUrl = cs.service.ServiceUrl
+                        },
+                        Email = cs.Email,
+                        Location = cs.Location,
+                        Phone = cs.Phone,
+                        Steps = cs.Steps.Select(s => new Steps()
+                        {
+                            StepId = s.StepId,
+                            StepsTitle = s.StepsTitle,
+                            StepsDescription = s.StepsDescription,
+                        }).ToList()
+                    }).ToList(),
+
+                    Departments = c.Departments.Select(d => new Department()
+                    {
+                        DepartmentId = d.DepartmentId,
+                        DepartmentName = d.DepartmentName,
+
+                        Courses = d.Courses.Select(c => new Course()
+                        {
+                            CourseCode = c.CourseCode,
+                            CourseName = c.CourseName,
+                            NQFLevel = c.NQFLevel,
+                            Duration = c.Duration
+                        }).ToList()
+                    }).ToList()
+                }).FirstOrDefaultAsync();
+
+            return result;
 
         }
 
         public async Task<List<Campus>> getCampusList()
         {
-            return await _adminDbContext.Campuses
-                .Include(c => c.News.Where(n => n.IsVisible))
-                .Include(c => c.Services)
-                    .ThenInclude(s => s.Steps)
-                .Include(c => c.Departments)
-                    .ThenInclude(d => d.Courses)
-                .ToListAsync();
+            var result = await _adminDbContext.Campuses
+                .Select(c => new Campus()
+                {
+                    CampusId = c.CampusId,
+                    CampusName = c.CampusName,
+
+                    News = c.News.Where(n => n.IsVisible).Select(n => new News()
+                    {
+                        NewsId = n.NewsId,
+                        NewsTitle = n.NewsTitle,
+                        NewsDescription = n.NewsDescription
+                    })
+                            .ToList(),
+
+                    CampusServices = c.CampusServices.Select(cs => new CampusService()
+                    {
+                        CampusServiceId = cs.CampusServiceId,
+                        service = new Service()
+                        {
+                            ServiceTitle = cs.service.ServiceTitle,
+                            ServiceDescription = cs.service.ServiceDescription,
+                            ServiceUrl = cs.service.ServiceUrl
+                        },
+                        Email = cs.Email,
+                        Location = cs.Location,
+                        Phone = cs.Phone,
+                        Steps = cs.Steps.Select(s => new Steps()
+                        {
+                            StepId = s.StepId,
+                            StepsTitle = s.StepsTitle,
+                            StepsDescription = s.StepsDescription,
+                        }).ToList()
+                    }).ToList(),
+
+                    Departments = c.Departments.Select(d => new Department()
+                    {
+                        DepartmentId = d.DepartmentId,
+                        DepartmentName = d.DepartmentName,
+
+                        Courses = d.Courses.Select(c => new Course()
+                        {
+                            CourseCode = c.CourseCode,
+                            CourseName = c.CourseName,
+                            NQFLevel = c.NQFLevel,
+                            Duration = c.Duration
+                        }).ToList()
+                    }).ToList()
+                }).ToListAsync();
+
+            return result;
         }
     }
 }

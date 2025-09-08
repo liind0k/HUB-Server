@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICTInfoHub.Model.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20250904115557_wenda")]
-    partial class wenda
+    [Migration("20250908121236_vvvv")]
+    partial class vvvv
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,17 +105,45 @@ namespace ICTInfoHub.Model.Migrations
                     b.ToTable("Campuses");
                 });
 
-            modelBuilder.Entity("ICTInfoHub.Model.Model.Course", b =>
+            modelBuilder.Entity("ICTInfoHub.Model.Model.CampusService", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CampusServiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CampusServiceId"));
 
-                    b.Property<string>("CourseCode")
+                    b.Property<int>("CampusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CampusServiceId");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("CampusService");
+                });
+
+            modelBuilder.Entity("ICTInfoHub.Model.Model.Course", b =>
+                {
+                    b.Property<string>("CourseCode")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CourseName")
                         .IsRequired()
@@ -132,7 +160,7 @@ namespace ICTInfoHub.Model.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CourseCode");
 
                     b.HasIndex("DepartmentId");
 
@@ -207,26 +235,11 @@ namespace ICTInfoHub.Model.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
 
-                    b.Property<int>("CampusId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ServiceDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ServiceEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ServiceLocation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ServicePhone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -240,8 +253,6 @@ namespace ICTInfoHub.Model.Migrations
 
                     b.HasKey("ServiceId");
 
-                    b.HasIndex("CampusId");
-
                     b.ToTable("Services");
                 });
 
@@ -253,7 +264,7 @@ namespace ICTInfoHub.Model.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StepId"));
 
-                    b.Property<int>("ServiceId")
+                    b.Property<int>("CampusServiceId")
                         .HasColumnType("int");
 
                     b.Property<string>("StepsDescription")
@@ -266,7 +277,7 @@ namespace ICTInfoHub.Model.Migrations
 
                     b.HasKey("StepId");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("CampusServiceId");
 
                     b.ToTable("Steps");
                 });
@@ -301,6 +312,25 @@ namespace ICTInfoHub.Model.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ICTInfoHub.Model.Model.CampusService", b =>
+                {
+                    b.HasOne("ICTInfoHub.Model.Model.Campus", "Campus")
+                        .WithMany("CampusServices")
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ICTInfoHub.Model.Model.Service", "service")
+                        .WithMany("CampusServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("service");
+                });
+
             modelBuilder.Entity("ICTInfoHub.Model.Model.Course", b =>
                 {
                     b.HasOne("ICTInfoHub.Model.Model.Department", "Department")
@@ -323,31 +353,25 @@ namespace ICTInfoHub.Model.Migrations
                     b.Navigation("Admin");
                 });
 
-            modelBuilder.Entity("ICTInfoHub.Model.Model.Service", b =>
-                {
-                    b.HasOne("ICTInfoHub.Model.Model.Campus", "Campus")
-                        .WithMany("Services")
-                        .HasForeignKey("CampusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Campus");
-                });
-
             modelBuilder.Entity("ICTInfoHub.Model.Model.Steps", b =>
                 {
-                    b.HasOne("ICTInfoHub.Model.Model.Service", "service")
+                    b.HasOne("ICTInfoHub.Model.Model.CampusService", "CampusService")
                         .WithMany("Steps")
-                        .HasForeignKey("ServiceId")
+                        .HasForeignKey("CampusServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("service");
+                    b.Navigation("CampusService");
                 });
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.Campus", b =>
                 {
-                    b.Navigation("Services");
+                    b.Navigation("CampusServices");
+                });
+
+            modelBuilder.Entity("ICTInfoHub.Model.Model.CampusService", b =>
+                {
+                    b.Navigation("Steps");
                 });
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.Department", b =>
@@ -357,7 +381,7 @@ namespace ICTInfoHub.Model.Migrations
 
             modelBuilder.Entity("ICTInfoHub.Model.Model.Service", b =>
                 {
-                    b.Navigation("Steps");
+                    b.Navigation("CampusServices");
                 });
 #pragma warning restore 612, 618
         }

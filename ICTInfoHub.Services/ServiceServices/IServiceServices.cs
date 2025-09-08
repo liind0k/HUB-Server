@@ -14,8 +14,7 @@ namespace ICTInfoHub.Services.ServiceServices
         public Task<List<Service>> getServicesByCategory([EnumDataType(typeof(Category))]string category);
         Task<List<Service>> getAllServices();
         Task<Service> getService(int id);
-        Task<List<Service>> getServicesByCampus(int campusId);
-        Task<List<Service>> getServicesByCampusAndCategory(int campusId,string category);
+        Task<List<CampusService>> getServicesByCampus(int campusId);
         Task<bool> updateServicePhone(UpdateServiceContactsDTO serviceContactsDTO);
         Task<bool> updateServiceEmail(UpdateServiceContactsDTO serviceContactsDTO);
         Task<bool> updateServiceLocation(UpdateServiceContactsDTO serviceContactsDTO);

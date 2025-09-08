@@ -25,11 +25,6 @@ namespace ICTInfoHub.Model.Model
                 .Property(n => n.Category)
                 .HasConversion<string>(); 
 
-            modelBuilder.Entity<Service>()
-                .HasOne(s => s.Campus)
-                .WithMany(c => c.Services)
-                .HasForeignKey(s => s.CampusId)
-                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Department>()
                 .HasMany(d => d.Campus)
@@ -49,6 +44,18 @@ namespace ICTInfoHub.Model.Model
                 j.HasKey("CampusId", "DepartmentId");
                 j.ToTable("CampusDepartment");
             });
+
+            modelBuilder.Entity<CampusService>()
+                .HasOne(cs => cs.Campus)
+                .WithMany(s => s.CampusServices)
+                .HasForeignKey(cs => cs.CampusId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CampusService>()
+                .HasOne(cs => cs.service)
+                .WithMany(s => s.CampusServices)
+                .HasForeignKey(cs => cs.ServiceId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<News>()
                 .HasMany(d => d.Campuses)
@@ -72,21 +79,27 @@ namespace ICTInfoHub.Model.Model
                 .HasIndex(c => c.CampusName)
                 .IsUnique();
 
+            modelBuilder.Entity<Course>()
+                .HasKey(c => c.CourseCode);
+
             modelBuilder.Entity<Service>()
                 .Property(s => s.Category)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<Service>()
-                .HasOne(s => s.Campus)
-                .WithMany(c => c.Services)
-                .HasForeignKey(s => s.CampusId)
+
+            modelBuilder.Entity<Campus>()
+                .HasMany(c => c.CampusServices)
+                .WithOne(s => s.Campus)
+                .HasForeignKey(s => s.CampusId);
+
+            modelBuilder.Entity<Steps>()
+                .HasOne(s => s.CampusService)
+                .WithMany(cs => cs.Steps)
+                .HasForeignKey(s => s.CampusServiceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Service>()
-                .HasMany(s => s.Steps)
-                .WithOne(st => st.service)
-                .HasForeignKey(st => st.ServiceId)
-                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

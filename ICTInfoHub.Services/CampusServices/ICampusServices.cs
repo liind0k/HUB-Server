@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ICTInfoHub.Model.Model;
+using ICTInfoHub.Model.Model.DTOs;
 
 namespace ICTInfoHub.Services.CampusServices
 {

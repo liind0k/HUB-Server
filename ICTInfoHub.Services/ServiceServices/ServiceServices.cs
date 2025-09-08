@@ -19,24 +19,46 @@ namespace ICTInfoHub.Services.ServiceServices
         }
         public async Task<List<Service>> getAllServices()
         {
-            List<Service> services = await _context.Services.Include(s => s.Steps).ToListAsync();
-            return services;
-        }
-        public async Task<List<Service>> getServicesByCampus(int campusId)
-        {
-            var services =  await _context.Services.Select(a => a).Where(a => a.CampusId == campusId).Include(a => a.Steps).ToListAsync();
-            return services;
-        }
-        public async Task<List<Service>> getServicesByCampusAndCategory(int campusId, string category)
-        {
-            var services = await _context.Services.Select(a=>a).Where(a=>a.CampusId == campusId && a.Category == category)
-                                                                    .Include(a => a.Steps)
+            List<Service> services = await _context.Services
+                                                .Include(s => s.CampusServices)
+                                                    .ThenInclude(cs => cs.Phone)
+                                                .Include(s => s.CampusServices)
+                                                    .ThenInclude(cs => cs.Email)
+                                                .Include(s => s.CampusServices)
+                                                    .ThenInclude(cs => cs.Location)
+                                                .Include(s => s.CampusServices)
+                                                    .ThenInclude(cs => cs.Steps)
                                                   .ToListAsync();
+            return services;
+        }
+        public async Task<List<CampusService>> getServicesByCampus(int campusId)
+        {
+            var services =  await _context.Set<CampusService>().Select(a => a).Where(a => a.CampusId == campusId)
+                        .Include(cs => cs.Campus)
+                           .ThenInclude(c => c.CampusName)
+                        .Include(cs => cs.service)
+                           .ThenInclude(s => s.ServiceTitle)
+                        .Include(cs => cs.service)
+                           .ThenInclude(s => s.ServiceUrl)
+                        .Include(cs => cs.Phone)
+                        .Include(cs => cs.Email)
+                        .Include(cs => cs.Location)
+                        .Include(cs => cs.Steps)
+                        .ToListAsync();
             return services;
         }
         public async Task<List<Service>> getServicesByCategory(string category)
         {
-            var res = await _context.Services.Select(a => a).Where(a => a.Category == category).ToListAsync();
+            var res = await _context.Services.Select(a => a).Where(a => a.Category == category)
+                                    .Include(s => s.CampusServices)
+                                        .ThenInclude(cs => cs.Phone)
+                                    .Include(s => s.CampusServices)
+                                        .ThenInclude(cs => cs.Email)
+                                    .Include(s => s.CampusServices)
+                                        .ThenInclude(cs => cs.Location)
+                                    .Include(s => s.CampusServices)
+                                        .ThenInclude(cs => cs.Steps)
+                                    .ToListAsync();
 
             if (res.Count == 0)
             {
@@ -46,12 +68,13 @@ namespace ICTInfoHub.Services.ServiceServices
         }
         public async Task<bool> updateServicePhone(UpdateServiceContactsDTO updateContacts)
         {
-            var service = await _context.Services.FindAsync(updateContacts.Id);
+            var service = await _context.Set<CampusService>().FirstOrDefaultAsync(a => a.CampusId == updateContacts.CampusId && a.ServiceId == a.ServiceId);
 
             if (service != null)
             {
-                service.ServicePhone = updateContacts.inputString;
-                _context.Services.Update(service);
+             
+                service.Phone = updateContacts.inputString;
+                _context.Set<CampusService>().Update(service);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -63,12 +86,13 @@ namespace ICTInfoHub.Services.ServiceServices
         }
         public async Task<bool> updateServiceEmail(UpdateServiceContactsDTO updateContacts)
         {
-            var service = await _context.Services.FindAsync(updateContacts.Id);
+            var service = await _context.Set<CampusService>().FirstOrDefaultAsync(a => a.CampusId == updateContacts.CampusId && a.ServiceId == a.ServiceId);
 
             if (service != null)
             {
-                service.ServicePhone = updateContacts.inputString;
-                _context.Services.Update(service);
+
+                service.Email = updateContacts.inputString;
+                _context.Set<CampusService>().Update(service);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -80,12 +104,13 @@ namespace ICTInfoHub.Services.ServiceServices
         }
         public async Task<bool> updateServiceLocation(UpdateServiceContactsDTO updateContacts)
         {
-            var service = await _context.Services.FindAsync(updateContacts.Id);
+            var service = await _context.Set<CampusService>().FirstOrDefaultAsync(a => a.CampusId == updateContacts.CampusId && a.ServiceId == a.ServiceId);
 
             if (service != null)
             {
-                service.ServicePhone = updateContacts.inputString;
-                _context.Services.Update(service);
+
+                service.Location = updateContacts.inputString;
+                _context.Set<CampusService>().Update(service);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -125,7 +150,14 @@ namespace ICTInfoHub.Services.ServiceServices
         public async Task<Service> getService(int id)
         {
             var service = await  _context.Services
-                                .Include(s => s.Steps)
+                                .Include(s => s.CampusServices)
+                                    .ThenInclude(cs => cs.Phone)
+                                .Include(s => s.CampusServices)
+                                    .ThenInclude(cs => cs.Email)
+                                .Include(s => s.CampusServices)
+                                    .ThenInclude(cs => cs.Location)
+                                .Include(s => s.CampusServices)
+                                    .ThenInclude(cs => cs.Steps)
                                 .FirstOrDefaultAsync(s => s.ServiceId==id);
 
             if (service != null)

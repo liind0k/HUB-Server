@@ -18,7 +18,7 @@ namespace ICTInfoHub.Model.Model
 
         public ICollection<News> News { get; set; } = new List<News>();
 
-        public ICollection<Service> Services { get; set; } = new List<Service>();
+        public ICollection<CampusService> CampusServices { get; set; } = new List<CampusService>();
         
         public ICollection<Department> Departments { get; set; }   = new List<Department>();
 

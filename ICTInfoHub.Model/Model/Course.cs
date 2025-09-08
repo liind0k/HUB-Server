@@ -11,8 +11,7 @@ namespace ICTInfoHub.Model.Model
 {
     public class Course
     {
-        [Key]
-        public int Id { get; set; }
+
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public string Duration { get; set; }

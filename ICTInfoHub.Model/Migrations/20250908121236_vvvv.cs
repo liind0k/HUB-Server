@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class wenda : Migration
+    public partial class vvvv : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,6 +54,22 @@ namespace ICTInfoHub.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    ServiceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Services", x => x.ServiceId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "News",
                 columns: table => new
                 {
@@ -76,32 +92,6 @@ namespace ICTInfoHub.Model.Migrations
                         column: x => x.AdminId,
                         principalTable: "Admins",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Services",
-                columns: table => new
-                {
-                    ServiceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ServiceUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ServiceEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ServiceLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ServicePhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CampusId = table.Column<int>(type: "int", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Services", x => x.ServiceId);
-                    table.ForeignKey(
-                        name: "FK_Services_Campuses_CampusId",
-                        column: x => x.CampusId,
-                        principalTable: "Campuses",
-                        principalColumn: "CampusId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -133,9 +123,7 @@ namespace ICTInfoHub.Model.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CourseCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CourseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NQFLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -143,13 +131,42 @@ namespace ICTInfoHub.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.PrimaryKey("PK_Courses", x => x.CourseCode);
                     table.ForeignKey(
                         name: "FK_Courses_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CampusService",
+                columns: table => new
+                {
+                    CampusServiceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CampusId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CampusService", x => x.CampusServiceId);
+                    table.ForeignKey(
+                        name: "FK_CampusService_Campuses_CampusId",
+                        column: x => x.CampusId,
+                        principalTable: "Campuses",
+                        principalColumn: "CampusId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CampusService_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "ServiceId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,18 +199,18 @@ namespace ICTInfoHub.Model.Migrations
                 {
                     StepId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
                     StepsTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StepsDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    StepsDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CampusServiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Steps", x => x.StepId);
                     table.ForeignKey(
-                        name: "FK_Steps_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
-                        principalColumn: "ServiceId",
+                        name: "FK_Steps_CampusService_CampusServiceId",
+                        column: x => x.CampusServiceId,
+                        principalTable: "CampusService",
+                        principalColumn: "CampusServiceId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -214,6 +231,16 @@ namespace ICTInfoHub.Model.Migrations
                 column: "NewsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CampusService_CampusId",
+                table: "CampusService",
+                column: "CampusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CampusService_ServiceId",
+                table: "CampusService",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Courses_DepartmentId",
                 table: "Courses",
                 column: "DepartmentId");
@@ -224,14 +251,9 @@ namespace ICTInfoHub.Model.Migrations
                 column: "AdminId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_CampusId",
-                table: "Services",
-                column: "CampusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Steps_ServiceId",
+                name: "IX_Steps_CampusServiceId",
                 table: "Steps",
-                column: "ServiceId");
+                column: "CampusServiceId");
         }
 
         /// <inheritdoc />
@@ -256,13 +278,16 @@ namespace ICTInfoHub.Model.Migrations
                 name: "Departments");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "CampusService");
 
             migrationBuilder.DropTable(
                 name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "Campuses");
+
+            migrationBuilder.DropTable(
+                name: "Services");
         }
     }
 }

@@ -8,7 +8,8 @@ namespace ICTInfoHub.Model.Model.DTOs
 {
     public class UpdateServiceContactsDTO
     {
-        public int Id { get; set; }
+        public int ServiceId { get; set; }
+        public int CampusId { get; set; }
         public string inputString { get; set; }
     }
 }

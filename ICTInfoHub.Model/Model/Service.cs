@@ -14,18 +14,10 @@ namespace ICTInfoHub.Model.Model
         [Required]
         public string ServiceDescription { get; set; }
         public string ServiceUrl { get; set; }
-        public string ServiceEmail { get; set; }
-        public string ServiceLocation { get; set; }
-        public string ServicePhone { get; set; }
-        public int CampusId { get; set; }
-        [ForeignKey(nameof(CampusId))]
-        [JsonIgnore]
-        public List<Campus> Campus { get; set; }
-        [Required]
-        public List<Steps> Steps { get; set; }
         [Required]
         [EnumDataType(typeof(Category))]
-        public string Category { get; set; } 
+        public string Category { get; set; }
+        public ICollection<CampusService> CampusServices { get; set; } = new List<CampusService>();
     }
     public enum Category
     {
