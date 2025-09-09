@@ -63,8 +63,8 @@ VALUES
 ((SELECT CampusId FROM Campuses WHERE CampusName='Emalahleni'), (SELECT ServiceId FROM Services WHERE ServiceTitle='Class & Test Timetables'), '+271234567890', 'admission@tut.ac.za',  'Building 5'),
 ((SELECT CampusId FROM Campuses WHERE CampusName='Polokwane'), (SELECT ServiceId FROM Services WHERE ServiceTitle='Class & Test Timetables'), '+271234567890', 'admission@tut.ac.za',  'Building 5'),
 ((SELECT CampusId FROM Campuses WHERE CampusName='Soshanguve'), (SELECT ServiceId FROM Services WHERE ServiceTitle='NSFAS Enquiries'), '+271234567890', 'info@nsfas.org',  'Building 10'),
-((SELECT CampusId FROM Campuses WHERE CampusName='Soshanguve'), (SELECT ServiceId FROM Services WHERE ServiceTitle='NSFAS Enquiries'), '+271234567890', 'info@nsfas.org',  'Building 10'),
-((SELECT CampusId FROM Campuses WHERE CampusName='Soshanguve'), (SELECT ServiceId FROM Services WHERE ServiceTitle ='NSFAS Enquiries'), '+271234567890', 'info@nsfas.org',  'Building 10');
+((SELECT CampusId FROM Campuses WHERE CampusName='Emalahleni'), (SELECT ServiceId FROM Services WHERE ServiceTitle='NSFAS Enquiries'), '+271234567890', 'info@nsfas.org',  'Building 10'),
+((SELECT CampusId FROM Campuses WHERE CampusName='Polokwane'), (SELECT ServiceId FROM Services WHERE ServiceTitle ='NSFAS Enquiries'), '+271234567890', 'info@nsfas.org',  'Building 10');
 
 
 INSERT INTO Steps(CampusServiceId, StepsTitle, StepsDescription)

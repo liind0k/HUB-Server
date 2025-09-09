@@ -1,4 +1,5 @@
 ﻿using ICTInfoHub.Model.Model;
+using ICTInfoHub.Model.Model.DTOs.CampusDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,35 +18,42 @@ namespace ICTInfoHub.Services.CampusServices
             _adminDbContext = adminDbContext;
         }
 
-        public async Task<Campus> adminGetCampus(int CampusId)
+        public async Task<CampusDTO> adminGetCampus(int CampusId)
         {
             var result = await _adminDbContext.Campuses
                 .Where(c => c.CampusId == CampusId)
-                .Select(c => new Campus()
+                .Select(c => new CampusDTO()
                 {
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
                     
-                    News = c.News.Select(n => new News()
-                    { 
-                                NewsId = n.NewsId,
-                                NewsTitle = n.NewsTitle,
-                                NewsDescription = n.NewsDescription })
-                            .ToList(),
+                    News = c.News.Select(n => new NewsDTO()
+                    {
+                        NewsId = n.NewsId,
+                        NewsTitle = n.NewsTitle,
+                        NewsDescription = n.NewsDescription,
+                        Category = n.Category,
+                        Priority = n.Priority,
+                        DocFile = n.DocFile,
+                        CreatedAt = n.CreatedAt
+                    })
+                     .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new  CampusService()
+                    CampusServices = c.CampusServices.Select(cs => new  CampusServiceDTO()
                     {
                             CampusServiceId = cs.CampusServiceId, 
-                            service = new Service()
+                            service = new ServiceDTO()
                         {
+                                ServiceId = cs.service.ServiceId,
                                ServiceTitle = cs.service.ServiceTitle,
                                ServiceDescription = cs.service.ServiceDescription,
-                               ServiceUrl = cs.service.ServiceUrl
+                               ServiceUrl = cs.service.ServiceUrl,
+                               Category = cs.service.Category
                         },
                         Email = cs.Email,
                         Location = cs.Location,
                         Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new Steps() 
+                        Steps = cs.Steps.Select(s => new StepsDTO() 
                         {
                             StepId = s.StepId,
                             StepsTitle = s.StepsTitle,
@@ -53,12 +61,12 @@ namespace ICTInfoHub.Services.CampusServices
                         }).ToList()
                     }).ToList(),
 
-                Departments = c.Departments.Select(d => new  Department
+                Departments = c.Departments.Select(d => new  DepartmentDTO()
                 {
                     DepartmentId = d.DepartmentId, 
                     DepartmentName = d.DepartmentName,
-                    
-                    Courses = d.Courses.Select(c => new Course()
+
+                    Courses = d.Courses.Select(c => new CourseDTO()
                     {
                         CourseCode = c.CourseCode,
                         CourseName = c.CourseName,
@@ -73,38 +81,41 @@ namespace ICTInfoHub.Services.CampusServices
 
         }
 
-        public async Task<List<Campus>> adminGetCampusList()
+        public async Task<List<CampusDTO>> adminGetCampusList()
         {
             var campuses = await _adminDbContext.Campuses
-                .Select(c => new Campus() 
+                .Select(c => new CampusDTO()
                 {
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Select(n => new News() 
+                    News = c.News.Select(n => new NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,
                         NewsDescription = n.NewsDescription,
                         Category = n.Category,
                         Priority = n.Priority,
-                        CreatedAt = n.CreatedAt,
+                        DocFile = n.DocFile,
+                        CreatedAt = n.CreatedAt
                     })
                      .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new CampusService()
+                    CampusServices = c.CampusServices.Select(cs => new CampusServiceDTO()
                     {
                         CampusServiceId = cs.CampusServiceId,
-                        service = new Service() 
+                        service = new ServiceDTO()
                         {
+                            ServiceId = cs.service.ServiceId,
                             ServiceTitle = cs.service.ServiceTitle,
                             ServiceDescription = cs.service.ServiceDescription,
-                            ServiceUrl = cs.service.ServiceUrl
+                            ServiceUrl = cs.service.ServiceUrl,
+                            Category = cs.service.Category
                         },
                         Email = cs.Email,
                         Location = cs.Location,
                         Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new Steps()
+                        Steps = cs.Steps.Select(s => new StepsDTO()
                         {
                             StepId = s.StepId,
                             StepsTitle = s.StepsTitle,
@@ -112,12 +123,12 @@ namespace ICTInfoHub.Services.CampusServices
                         }).ToList()
                     }).ToList(),
 
-                    Departments = c.Departments.Select(d => new Department()
+                    Departments = c.Departments.Select(d => new DepartmentDTO()
                     {
                         DepartmentId = d.DepartmentId,
                         DepartmentName = d.DepartmentName,
 
-                        Courses = d.Courses.Select(c => new Course()
+                        Courses = d.Courses.Select(c => new CourseDTO()
                         {
                             CourseCode = c.CourseCode,
                             CourseName = c.CourseName,
@@ -130,36 +141,42 @@ namespace ICTInfoHub.Services.CampusServices
             return campuses;
         }
     
-        public async Task<Campus> getCampus(int CampusId)
+        public async Task<CampusDTO> getCampus(int CampusId)
         {
             var result = await _adminDbContext.Campuses
                 .Where(c => c.CampusId == CampusId)
-                .Select(c => new Campus()
+                .Select(c => new CampusDTO()
                 {
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Where(n => n.IsVisible).Select(n => new News()
+                    News = c.News.Select(n => new NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,
-                        NewsDescription = n.NewsDescription
+                        NewsDescription = n.NewsDescription,
+                        Category = n.Category,
+                        Priority = n.Priority,
+                        DocFile = n.DocFile,
+                        CreatedAt = n.CreatedAt
                     })
-                            .ToList(),
+                     .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new CampusService()
+                    CampusServices = c.CampusServices.Select(cs => new CampusServiceDTO()
                     {
                         CampusServiceId = cs.CampusServiceId,
-                        service = new Service()
+                        service = new ServiceDTO()
                         {
+                            ServiceId = cs.service.ServiceId,
                             ServiceTitle = cs.service.ServiceTitle,
                             ServiceDescription = cs.service.ServiceDescription,
-                            ServiceUrl = cs.service.ServiceUrl
+                            ServiceUrl = cs.service.ServiceUrl,
+                            Category = cs.service.Category
                         },
                         Email = cs.Email,
                         Location = cs.Location,
                         Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new Steps()
+                        Steps = cs.Steps.Select(s => new StepsDTO()
                         {
                             StepId = s.StepId,
                             StepsTitle = s.StepsTitle,
@@ -167,12 +184,12 @@ namespace ICTInfoHub.Services.CampusServices
                         }).ToList()
                     }).ToList(),
 
-                    Departments = c.Departments.Select(d => new Department()
+                    Departments = c.Departments.Select(d => new DepartmentDTO()
                     {
                         DepartmentId = d.DepartmentId,
                         DepartmentName = d.DepartmentName,
 
-                        Courses = d.Courses.Select(c => new Course()
+                        Courses = d.Courses.Select(c => new CourseDTO()
                         {
                             CourseCode = c.CourseCode,
                             CourseName = c.CourseName,
@@ -186,35 +203,41 @@ namespace ICTInfoHub.Services.CampusServices
 
         }
 
-        public async Task<List<Campus>> getCampusList()
+        public async Task<List<CampusDTO>> getCampusList()
         {
             var result = await _adminDbContext.Campuses
-                .Select(c => new Campus()
+                .Select(c => new CampusDTO()
                 {
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Where(n => n.IsVisible).Select(n => new News()
+                    News = c.News.Select(n => new NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,
-                        NewsDescription = n.NewsDescription
+                        NewsDescription = n.NewsDescription,
+                        Category = n.Category,
+                        Priority = n.Priority,
+                        DocFile = n.DocFile,
+                        CreatedAt = n.CreatedAt
                     })
-                            .ToList(),
+                     .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new CampusService()
+                    CampusServices = c.CampusServices.Select(cs => new CampusServiceDTO()
                     {
                         CampusServiceId = cs.CampusServiceId,
-                        service = new Service()
+                        service = new ServiceDTO()
                         {
+                            ServiceId = cs.service.ServiceId,
                             ServiceTitle = cs.service.ServiceTitle,
                             ServiceDescription = cs.service.ServiceDescription,
-                            ServiceUrl = cs.service.ServiceUrl
+                            ServiceUrl = cs.service.ServiceUrl,
+                            Category = cs.service.Category
                         },
                         Email = cs.Email,
                         Location = cs.Location,
                         Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new Steps()
+                        Steps = cs.Steps.Select(s => new StepsDTO()
                         {
                             StepId = s.StepId,
                             StepsTitle = s.StepsTitle,
@@ -222,12 +245,12 @@ namespace ICTInfoHub.Services.CampusServices
                         }).ToList()
                     }).ToList(),
 
-                    Departments = c.Departments.Select(d => new Department()
+                    Departments = c.Departments.Select(d => new DepartmentDTO()
                     {
                         DepartmentId = d.DepartmentId,
                         DepartmentName = d.DepartmentName,
 
-                        Courses = d.Courses.Select(c => new Course()
+                        Courses = d.Courses.Select(c => new CourseDTO()
                         {
                             CourseCode = c.CourseCode,
                             CourseName = c.CourseName,

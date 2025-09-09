@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class vvvv : Migration
+    public partial class aint : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

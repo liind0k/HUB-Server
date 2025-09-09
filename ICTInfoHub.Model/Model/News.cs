@@ -15,7 +15,7 @@ namespace ICTInfoHub.Model.Model
         public string NewsDescription { get; set; }
         [Required]
         [EnumDataType(typeof(Priority))]
-        public String Priority { get; set; }
+        public string Priority { get; set; }
         [Required]
         [EnumDataType(typeof(NewsCategory))]
         public string Category { get; set; }

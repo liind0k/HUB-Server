@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICTInfoHub.Model.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20250908121236_vvvv")]
-    partial class vvvv
+    [Migration("20250909070540_aint")]
+    partial class aint
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
