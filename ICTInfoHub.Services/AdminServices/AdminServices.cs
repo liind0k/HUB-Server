@@ -26,12 +26,10 @@ namespace ICTInfoHub.Services.AdminServices
 
             if(admin != null)
             {
-                return false;
+                throw new Exception("User already exist.");
             }
             else
             {
-                try
-                {
                     var NewAdmin = new Admin()
                     {
                         Email = staff.Email,
@@ -40,12 +38,9 @@ namespace ICTInfoHub.Services.AdminServices
                         Password = staff.Password,
                     };
                     _context.Admins.Add(NewAdmin);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return true;
-                }catch (Exception ex)
-                {
-                    return false;
-                }
+
             }
 
         }
@@ -53,7 +48,8 @@ namespace ICTInfoHub.Services.AdminServices
         {
             var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Email == loginAdmin.email && a.Password == loginAdmin.password);
 
-            if (admin == null) return null;
+            if (admin == null)
+                throw new Exception("User not found.");
 
             return admin;
         }
@@ -63,21 +59,15 @@ namespace ICTInfoHub.Services.AdminServices
 
             if(admin == null)
             {
-                return false;
+                throw new Exception("User not found.");
             }
             else
             {
-                try
-                {
                     admin.Surname = updateDetails.Surname;
                     admin.Initials = updateDetails.Initials;
                     _context.Update(admin);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return true;
-                }catch (Exception ex)
-                {
-                    return false;
-                }
             }
         }
         public async Task<bool> updatePassword(UpdatePasswordDTO updatePassword)
@@ -86,7 +76,7 @@ namespace ICTInfoHub.Services.AdminServices
 
             if(Admin == null)
             {
-                return false;
+                throw new Exception("User not found.");
             }
             else
             {
@@ -94,12 +84,12 @@ namespace ICTInfoHub.Services.AdminServices
                 {
                     Admin.Password = updatePassword.Password;
                     _context.Update(Admin);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return true;
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Current Password is incorrect.");
                 }
                 
             }
@@ -110,13 +100,13 @@ namespace ICTInfoHub.Services.AdminServices
 
             if(admin == null)
             {
-                return false;
+                throw new Exception("User not found.");
             }
             else
             {
                 admin.Email = updateEmail.Email;
                 _context.Update(admin);
-                _context.SaveChanges(); 
+                await _context.SaveChangesAsync(); 
                 return true;
             }
         }

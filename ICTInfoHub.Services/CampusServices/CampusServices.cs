@@ -17,7 +17,6 @@ namespace ICTInfoHub.Services.CampusServices
         {
             _adminDbContext = adminDbContext;
         }
-
         public async Task<CampusDTO> adminGetCampus(int CampusId)
         {
             var result = await _adminDbContext.Campuses
@@ -80,7 +79,6 @@ namespace ICTInfoHub.Services.CampusServices
 
 
         }
-
         public async Task<List<CampusDTO>> adminGetCampusList()
         {
             var campuses = await _adminDbContext.Campuses
@@ -140,7 +138,6 @@ namespace ICTInfoHub.Services.CampusServices
 
             return campuses;
         }
-    
         public async Task<CampusDTO> getCampus(int CampusId)
         {
             var result = await _adminDbContext.Campuses
@@ -150,7 +147,7 @@ namespace ICTInfoHub.Services.CampusServices
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Select(n => new NewsDTO()
+                    News = c.News.Where(n => n.IsVisible).Select(n => new NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,
@@ -202,7 +199,6 @@ namespace ICTInfoHub.Services.CampusServices
             return result;
 
         }
-
         public async Task<List<CampusDTO>> getCampusList()
         {
             var result = await _adminDbContext.Campuses
@@ -211,7 +207,7 @@ namespace ICTInfoHub.Services.CampusServices
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Select(n => new NewsDTO()
+                    News = c.News.Where(n => n.IsVisible).Select(n => new NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,

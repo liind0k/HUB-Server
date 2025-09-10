@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ICTInfoHub.Model.Model.DTOs
 {
-    public class UpdateStepsDTO
+    public class GetServiceDTO
     {
+        public int CampusId { get; set; }
         public int ServiceId { get; set; }
-
-        public Steps Step { get; set; }
+        public int CampusServiceId { get; set; }
     }
 }

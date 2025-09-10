@@ -18,7 +18,7 @@ namespace ICTInfoHub.Model.Model
         public int CampusServiceId { get; set; }
         [ForeignKey(nameof(CampusServiceId))]
         [JsonIgnore]
-        public CampusService CampusService { get; set; }
+        public CampusService? CampusService { get; set; }
 
 
     }

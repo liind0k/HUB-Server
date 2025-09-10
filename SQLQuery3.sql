@@ -69,15 +69,18 @@ VALUES
 
 INSERT INTO Steps(CampusServiceId, StepsTitle, StepsDescription)
 VALUES
-(2,'Enquiries','Visit the Financial Aid Office for enquiries'  ),
-(2, 'Enquiries','Visit the Financial Aid Office for enquiries'),
-(2, 'OneStop','Get signatures from OneStop'),
-(2, 'Issues','Visit NSFAS website for other issues'),
-(1,'Enquiries','Visit the Financial Aid Office for enquiries'  ),
-(1, 'Enquiries','Visit the Financial Aid Office for enquiries'),
-(1, 'OneStop','Get signatures from OneStop'),
-(1, 'Issues','Visit NSFAS website for other issues'),
-(3,'Enquiries','Visit the Financial Aid Office for enquiries'  ),
-(3, 'Enquiries','Visit the Financial Aid Office for enquiries'),
-(3, 'OneStop','Get signatures from OneStop'),
-(3, 'Issues','Visit NSFAS website for other issues');
+(1,'Academic Department','Visit the Academic Department for Timetables'  ),
+(1, 'Issues','Report clashes to the Academic Department urgently'),
+(2,'Academic Department','Visit the Academic Department for Timetables'  ),
+(2, 'Issues','Report clashes to the Academic Department urgently'),
+(3,'Academic Department','Visit the Academic Department for Timetables'  ),
+(3, 'Issues','Report clashes to the Academic Department urgently'),
+(4,'Enquiries','Visit the Financial Aid Office for enquiries'  ),
+(4, 'OneStop','Get signatures from OneStop'),
+(4, 'Issues','Visit NSFAS website for other issues'),
+(5,'Enquiries','Visit the Financial Aid Office for enquiries'  ),
+(5, 'OneStop','Get signatures from OneStop'),
+(5, 'Issues','Visit NSFAS website for other issues'),
+(6,'Enquiries','Visit the Financial Aid Office for enquiries'  ),
+(6, 'OneStop','Get signatures from OneStop'),
+(6, 'Issues','Visit NSFAS website for other issues');

@@ -1,4 +1,5 @@
-﻿using ICTInfoHub.Model.Model.DTOs;
+﻿using ICTInfoHub.Model.Model;
+using ICTInfoHub.Model.Model.DTOs;
 using ICTInfoHub.Services.ServiceServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,9 +31,23 @@ namespace ICTInfoHub.API.Controllers.ServiceController
             }
         }
         [HttpGet("getService")]
-        public async Task<IActionResult> GetService(int ServiceId)
+        public async Task<IActionResult> GetService(int ServiceId, int CampusId)
         {
-            var res = await _serviceServices.getService(ServiceId);
+            var res = await _serviceServices.getService(ServiceId, CampusId);
+
+            if (res == null)
+            {
+                return StatusCode(400);
+            }
+            else
+            {
+                return Ok(res);
+            }
+        }
+        [HttpGet("getServicesByCampus")]
+        public async Task<IActionResult> getServicesByCampus(int CampusId)
+        {
+            var res = await _serviceServices.getAllServicesByCampus(CampusId);
 
             if (res == null)
             {
@@ -86,9 +101,9 @@ namespace ICTInfoHub.API.Controllers.ServiceController
             }
         }
         [HttpPut("updateSteps")]
-        public async Task<IActionResult> updateServiceSteps(UpdateStepsDTO updateSteps)
+        public async Task<IActionResult> updateServiceSteps(Steps steps)
         {
-            var res = await _serviceServices.updateServiceSteps(updateSteps);
+            var res = await _serviceServices.updateServiceSteps(steps);
 
             if (res)
             {
@@ -99,5 +114,6 @@ namespace ICTInfoHub.API.Controllers.ServiceController
                 return StatusCode(400);
             }
         }
+
     }
 }

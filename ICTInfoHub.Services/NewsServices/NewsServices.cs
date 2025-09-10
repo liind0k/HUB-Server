@@ -60,7 +60,7 @@ namespace ICTInfoHub.Services.NewsServices
             }
             else
             {
-                return false;
+                throw new Exception("User not found."); ;
             }
         }
         public async Task<bool> updateNews(UpdateNewsDTO dto)
@@ -69,7 +69,7 @@ namespace ICTInfoHub.Services.NewsServices
 
             if (News == null)
             {
-                return false;
+                throw new Exception("News not found."); ;
             }
             else
             {
