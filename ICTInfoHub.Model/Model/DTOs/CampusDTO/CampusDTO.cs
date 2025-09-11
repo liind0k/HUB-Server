@@ -11,7 +11,7 @@ namespace ICTInfoHub.Model.Model.DTOs.CampusDTO
     {
         public int CampusId { get; set; }
         public string CampusName { get; set; }
-        public ICollection<NewsDTO> News { get; set; } = new List<NewsDTO>();
+        public ICollection<Campus_NewsDTO> News { get; set; } = new List<Campus_NewsDTO>();
         public ICollection<CampusServiceDTO> CampusServices { get; set; } = new List<CampusServiceDTO>();
         public ICollection<DepartmentDTO> Departments { get; set; } = new List<DepartmentDTO>();
     }

@@ -23,7 +23,7 @@ namespace ICTInfoHub.API.Controllers.ServiceController
 
             if (res == null) 
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Services not found" });
             }
             else
             {
@@ -37,7 +37,7 @@ namespace ICTInfoHub.API.Controllers.ServiceController
 
             if (res == null)
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Service not found" });
             }
             else
             {
@@ -51,7 +51,7 @@ namespace ICTInfoHub.API.Controllers.ServiceController
 
             if (res == null)
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Campus not found" });
             }
             else
             {
@@ -69,7 +69,7 @@ namespace ICTInfoHub.API.Controllers.ServiceController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Service not found" });
             }
         }
         [HttpPut("updateEmail")]
@@ -83,7 +83,7 @@ namespace ICTInfoHub.API.Controllers.ServiceController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Service not found" });
             }
         }
         [HttpPut("updateLocation")]
@@ -97,7 +97,7 @@ namespace ICTInfoHub.API.Controllers.ServiceController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Service not found" }); ;
             }
         }
         [HttpPut("updateSteps")]

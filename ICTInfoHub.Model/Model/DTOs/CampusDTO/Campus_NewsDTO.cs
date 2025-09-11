@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ICTInfoHub.Model.Model.DTOs.CampusDTO
 {
-    public class NewsDTO
+    public class Campus_NewsDTO
     {
         public int NewsId { get; set; }
         public string NewsTitle { get; set; }

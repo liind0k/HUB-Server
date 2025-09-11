@@ -26,7 +26,7 @@ namespace ICTInfoHub.Services.CampusServices
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
                     
-                    News = c.News.Select(n => new NewsDTO()
+                    News = c.News.Select(n => new Campus_NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,
@@ -87,7 +87,7 @@ namespace ICTInfoHub.Services.CampusServices
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Select(n => new NewsDTO()
+                    News = c.News.Select(n => new Campus_NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,
@@ -147,7 +147,7 @@ namespace ICTInfoHub.Services.CampusServices
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Where(n => n.IsVisible).Select(n => new NewsDTO()
+                    News = c.News.Where(n => n.IsVisible).Select(n => new Campus_NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,
@@ -207,7 +207,7 @@ namespace ICTInfoHub.Services.CampusServices
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
 
-                    News = c.News.Where(n => n.IsVisible).Select(n => new NewsDTO()
+                    News = c.News.Where(n => n.IsVisible).Select(n => new Campus_NewsDTO()
                     {
                         NewsId = n.NewsId,
                         NewsTitle = n.NewsTitle,

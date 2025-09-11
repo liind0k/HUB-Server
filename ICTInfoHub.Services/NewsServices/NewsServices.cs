@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using ICTInfoHub.Model.Model.DTOs.CampusDTO;
+using ICTInfoHub.Model.Model.DTOs.NewsDTO;
 
 namespace ICTInfoHub.Services.NewsServices
 {
@@ -133,9 +135,25 @@ namespace ICTInfoHub.Services.NewsServices
                 return false;
             }
         }
-        public async Task<List<News>> getAllNews()
+        public async Task<List<NewsDTO>> getAllNews()
         {
-            List<News> list = await _context.News.ToListAsync();
+            List<NewsDTO> list = await _context.News
+                                    .Select(n => new NewsDTO()
+                                        {
+                                            NewsId = n.NewsId,
+                                            NewsTitle = n.NewsTitle,
+                                            NewsDescription = n.NewsDescription,
+                                            DocFile = n.DocFile,
+                                            Category = n.Category,
+                                            Priority = n.Priority,
+                                            CreatedAt = n.CreatedAt,
+                                            
+                                            news_Campus = n.Campuses.Select(c => new News_CampusDTO()
+                                            {
+                                                CampusName = c.CampusName
+                                            }).ToList()
+
+                                        }).ToListAsync();
             return list;
         }
         public async Task<List<News>> getNewsByCampus(int CampusId)
@@ -186,9 +204,25 @@ namespace ICTInfoHub.Services.NewsServices
                 return false;
             }
         }
-        public async Task<News> getNews(int NewsId)
+        public async Task<NewsDTO> getNews(int NewsId)
         {
-            var news = await _context.News.FindAsync(NewsId);
+            var news = await _context.News
+                        .Select(n => new NewsDTO()
+                        {
+                            NewsId = n.NewsId,
+                            NewsTitle = n.NewsTitle,
+                            NewsDescription = n.NewsDescription,
+                            DocFile = n.DocFile,
+                            Category = n.Category,
+                            Priority = n.Priority,
+                            CreatedAt = n.CreatedAt,
+                            
+                            news_Campus = n.Campuses.Select(c => new News_CampusDTO()
+                            {
+                                CampusName = c.CampusName
+                            }).ToList()
+
+                        }).FirstOrDefaultAsync(n => n.NewsId == NewsId);
             return news;
         }
     }

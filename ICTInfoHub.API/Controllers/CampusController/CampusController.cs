@@ -15,7 +15,6 @@ namespace ICTInfoHub.API.Controllers.CampusController
         {
             _campusServices = campusServices;
         }
-
         [HttpGet("getCampus")]
         public async Task<IActionResult> getCampus(int CampusId)
         {
@@ -30,10 +29,9 @@ namespace ICTInfoHub.API.Controllers.CampusController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Campus not found" });
             }
         }
-
         [HttpGet("getAllCampus")]
         public async Task<IActionResult> getAllCampus()
         {
@@ -48,7 +46,7 @@ namespace ICTInfoHub.API.Controllers.CampusController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Campuses not found" }); ;
             }
         }
         [HttpGet("adminGetCampus")]
@@ -65,10 +63,9 @@ namespace ICTInfoHub.API.Controllers.CampusController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Campus not found" }); ;
             }
         }
-
         [HttpGet("adminGetAllCampus")]
         public async Task<IActionResult> adminGetAllCampus()
         {
@@ -83,7 +80,7 @@ namespace ICTInfoHub.API.Controllers.CampusController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Campuses not found" }); ;
             }
         }
     }

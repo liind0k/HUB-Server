@@ -31,7 +31,7 @@ namespace ICTInfoHub.API.Controllers.AdminController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Unable to add Admin" }); 
             }
         }
 
@@ -49,7 +49,7 @@ namespace ICTInfoHub.API.Controllers.AdminController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Unable to update details" });
             }
         }
 
@@ -67,7 +67,7 @@ namespace ICTInfoHub.API.Controllers.AdminController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Unable to update email" }); 
             }
 
 
@@ -87,7 +87,7 @@ namespace ICTInfoHub.API.Controllers.AdminController
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Unable to update password" }); 
             }
         }
 
@@ -102,7 +102,7 @@ namespace ICTInfoHub.API.Controllers.AdminController
 
             if (getAdmin == null)
             {
-                return StatusCode(400);
+                return NotFound(new { message = $"Invalid login details" });
             }
             else
             {

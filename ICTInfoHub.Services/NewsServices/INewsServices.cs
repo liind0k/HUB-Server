@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using ICTInfoHub.Model.Model.DTOs.NewsDTO;
 
 namespace ICTInfoHub.Services.NewsServices
 {
     public interface INewsServices
     {
-        Task<News> getNews(int id);
-        Task<List<News>> getAllNews();
+        Task<NewsDTO> getNews(int id);
+        Task<List<NewsDTO>> getAllNews();
         Task<bool> addNews(CreateNewsDTO createNewsDTO);
         Task<bool> updateNews(UpdateNewsDTO updateNewsDTO);
         Task<List<News>> getNewsByCampus(int Campus);
