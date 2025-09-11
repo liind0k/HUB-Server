@@ -62,7 +62,7 @@ namespace ICTInfoHub.Services.NewsServices
             }
             else
             {
-                throw new Exception("User not found."); ;
+                throw new KeyNotFoundException($"Admin with ID {dto.AdminId} not found."); ;
             }
         }
         public async Task<bool> updateNews(UpdateNewsDTO dto)
@@ -71,7 +71,7 @@ namespace ICTInfoHub.Services.NewsServices
 
             if (News == null)
             {
-                throw new Exception("News not found."); ;
+                throw new KeyNotFoundException($"News with ID {dto.NewsId} not found."); ;
             }
             else
             {
@@ -121,7 +121,7 @@ namespace ICTInfoHub.Services.NewsServices
                 var News = _context.News.Find(deleteNews.NewsId);
                 if (News == null)
                 {
-                    return false;
+                    throw new KeyNotFoundException($"News with ID {deleteNews.NewsId} not found.");
                 }
                 else
                 {
@@ -132,7 +132,7 @@ namespace ICTInfoHub.Services.NewsServices
             }
             else
             {
-                return false;
+                 throw new KeyNotFoundException($"Admin with ID {deleteNews.AdminId} not found."); ;
             }
         }
         public async Task<List<NewsDTO>> getAllNews()
@@ -147,6 +147,7 @@ namespace ICTInfoHub.Services.NewsServices
                                             Category = n.Category,
                                             Priority = n.Priority,
                                             CreatedAt = n.CreatedAt,
+                                            isVisible = n.IsVisible,
                                             
                                             news_Campus = n.Campuses.Select(c => new News_CampusDTO()
                                             {
@@ -216,6 +217,7 @@ namespace ICTInfoHub.Services.NewsServices
                             Category = n.Category,
                             Priority = n.Priority,
                             CreatedAt = n.CreatedAt,
+                            isVisible = n.IsVisible,
                             
                             news_Campus = n.Campuses.Select(c => new News_CampusDTO()
                             {

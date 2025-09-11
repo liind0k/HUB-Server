@@ -15,6 +15,7 @@ namespace ICTInfoHub.Model.Model.DTOs.NewsDTO
         public string Category { get; set; }
         public DateTime? CreatedAt { get; set; }
         public byte[]? DocFile { get; set; }
+        public bool isVisible { get; set; }
 
         public List<News_CampusDTO> news_Campus { get; set; }
     }
