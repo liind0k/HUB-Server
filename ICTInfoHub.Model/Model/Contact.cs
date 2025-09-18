@@ -9,7 +9,7 @@ namespace ICTInfoHub.Model.Model
         public string Title { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string Role { get; set; }
+        public string? Role { get; set; }
         public string? OfficeNumber { get; set; }
         [JsonIgnore]
         public ICollection<Module> Modules { get; set; } = new List<Module>();
