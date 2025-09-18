@@ -112,18 +112,18 @@ namespace ICTInfoHub.Services.ServiceServices
                                             ServiceTitle = cs.service.ServiceTitle,
                                             ServiceDescription = cs.service.ServiceDescription,
                                             ServiceUrl = cs.service.ServiceUrl,
-                                        },
-                                        Phone = cs.Phone,
-                                        Email = cs.Email,
-                                        Location = cs.Location,
+                                            Phone = cs.Phone,
+                                            Email = cs.Email,
+                                            Location = cs.Location,
 
-                                        Steps = cs.Steps.Select(s => new StepsDTO()
-                                        {
-                                            StepId = s.StepId,
-                                            StepsTitle = s.StepsTitle,
-                                            StepsDescription = s.StepsDescription,
+                                            Steps = cs.Steps.Select(s => new StepsDTO()
+                                            {
+                                                StepId = s.StepId,
+                                                StepsTitle = s.StepsTitle,
+                                                StepsDescription = s.StepsDescription,
 
-                                        }).ToList()
+                                            }).ToList()
+                                        }
                                         
                                     })
                                 .FirstOrDefaultAsync(cs => cs.CampusServiceId== getCampServ.CampusServiceId);
@@ -137,7 +137,6 @@ namespace ICTInfoHub.Services.ServiceServices
                 return null;
             }
         }
-
         public async Task<List<CampusServiceDTO>> getAllServicesByCampus(int CampusId)
         {
             var service = await _context.Set<CampusService>()
@@ -151,18 +150,18 @@ namespace ICTInfoHub.Services.ServiceServices
                                     ServiceTitle = cs.service.ServiceTitle,
                                     ServiceDescription = cs.service.ServiceDescription,
                                     ServiceUrl = cs.service.ServiceUrl,
-                                },
-                                Phone = cs.Phone,
-                                Email = cs.Email,
-                                Location = cs.Location,
+                                    Phone = cs.Phone,
+                                    Email = cs.Email,
+                                    Location = cs.Location,
 
-                                Steps = cs.Steps.Select(s => new StepsDTO()
-                                {
-                                    StepId = s.StepId,
-                                    StepsTitle  = s.StepsTitle,
-                                    StepsDescription = s.StepsDescription,
+                                    Steps = cs.Steps.Select(s => new StepsDTO()
+                                    {
+                                        StepId = s.StepId,
+                                        StepsTitle = s.StepsTitle,
+                                        StepsDescription = s.StepsDescription,
 
-                                }).ToList()
+                                    }).ToList()
+                                }
 
                             }).ToListAsync();
             return service;

@@ -12,6 +12,8 @@ namespace ICTInfoHub.Model.Model
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Module> Modules { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,31 +21,35 @@ namespace ICTInfoHub.Model.Model
 
             modelBuilder.Entity<News>()
                 .Property(n => n.Priority)
-                .HasConversion<string>(); 
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Campus>()
+                .HasIndex(c => c.CampusName)
+                .IsUnique();
+
+            modelBuilder.Entity<Course>()
+                .HasIndex(c => c.CourseCode)
+                .IsUnique();
+
+            modelBuilder.Entity<Service>()
+                .Property(s => s.Category)
+                .HasConversion<string>();
 
             modelBuilder.Entity<News>()
                 .Property(n => n.Category)
-                .HasConversion<string>(); 
+                .HasConversion<string>();
 
+            modelBuilder.Entity<CampusDepartment>()
+                .HasOne(cd => cd.Campus)
+                .WithMany(c => c.CampusDepartments)
+                .HasForeignKey(cd => cd.CampusId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Department>()
-                .HasMany(d => d.Campus)
-                .WithMany(c => c.Departments)
-                .UsingEntity<Dictionary<string, object>>(
-            "CampusDepartment",
-            j => j.HasOne<Campus>()
-                  .WithMany()
-                  .HasForeignKey("CampusId")
-                  .OnDelete(DeleteBehavior.Cascade),
-            j => j.HasOne<Department>()
-                  .WithMany()
-                  .HasForeignKey("DepartmentId")
-                  .OnDelete(DeleteBehavior.Cascade),
-            j =>
-            {
-                j.HasKey("CampusId", "DepartmentId");
-                j.ToTable("CampusDepartment");
-            });
+            modelBuilder.Entity<CampusDepartment>()
+                .HasOne(cd => cd.Department)
+                .WithMany(d => d.CampusDepartments)
+                .HasForeignKey(cd => cd.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<CampusService>()
                 .HasOne(cs => cs.Campus)
@@ -75,17 +81,25 @@ namespace ICTInfoHub.Model.Model
                 j.HasKey("CampusId", "NewsId");   
                 j.ToTable("CampusNews");          
             });
-            modelBuilder.Entity<Campus>()
-                .HasIndex(c => c.CampusName)
-                .IsUnique();
 
             modelBuilder.Entity<Course>()
-                .HasKey(c => c.CourseCode);
-
-            modelBuilder.Entity<Service>()
-                .Property(s => s.Category)
-                .HasConversion<string>();
-
+        .HasMany(c => c.Modules)
+        .WithMany(m => m.Courses)
+        .UsingEntity<Dictionary<string, object>>(
+            "CourseModule",
+            j => j.HasOne<Module>()
+                  .WithMany()
+                  .HasForeignKey("ModuleId")
+                  .OnDelete(DeleteBehavior.Cascade),
+            j => j.HasOne<Course>()
+                  .WithMany()
+                  .HasForeignKey("CourseId")
+                  .OnDelete(DeleteBehavior.Cascade),
+            j =>
+            {
+                j.HasKey("CourseId", "ModuleId");
+                j.ToTable("CourseModule");
+            });
 
             modelBuilder.Entity<Campus>()
                 .HasMany(c => c.CampusServices)
@@ -98,6 +112,24 @@ namespace ICTInfoHub.Model.Model
                 .HasForeignKey(s => s.CampusServiceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Contact>()
+                .HasMany(d => d.Modules)
+                .WithMany(c => c.Contacts)
+                .UsingEntity<Dictionary<string, object>>(
+            "ModuleContact",
+            j => j.HasOne<Module>()
+                  .WithMany()
+                  .HasForeignKey("ModuleCode")
+                  .OnDelete(DeleteBehavior.Cascade),
+            j => j.HasOne<Contact>()
+                  .WithMany()
+                  .HasForeignKey("ContactId")
+                  .OnDelete(DeleteBehavior.Cascade),
+            j =>
+            {
+                j.HasKey("ModuleCode", "ContactId");
+                j.ToTable("ModuleContact");
+            });
 
 
         }

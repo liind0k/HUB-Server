@@ -38,40 +38,47 @@ namespace ICTInfoHub.Services.CampusServices
                     })
                      .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new  CampusServiceDTO()
+                    Services = c.CampusServices.Select(cs => new  CampusServiceDTO()
                     {
-                            CampusServiceId = cs.CampusServiceId, 
-                            service = new ServiceDTO()
+                        CampusServiceId = cs.CampusServiceId, 
+                        service = new ServiceDTO()
                         {
-                                ServiceId = cs.service.ServiceId,
-                               ServiceTitle = cs.service.ServiceTitle,
-                               ServiceDescription = cs.service.ServiceDescription,
-                               ServiceUrl = cs.service.ServiceUrl,
-                               Category = cs.service.Category
-                        },
-                        Email = cs.Email,
-                        Location = cs.Location,
-                        Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new StepsDTO() 
-                        {
-                            StepId = s.StepId,
-                            StepsTitle = s.StepsTitle,
-                            StepsDescription = s.StepsDescription,
-                        }).ToList()
+                            ServiceId = cs.service.ServiceId,
+                            ServiceTitle = cs.service.ServiceTitle,
+                            ServiceDescription = cs.service.ServiceDescription,
+                            ServiceUrl = cs.service.ServiceUrl,
+                            Category = cs.service.Category,
+                            Email = cs.Email,
+                            Location = cs.Location,
+                            Phone = cs.Phone,
+                            Steps = cs.Steps.Select(s => new StepsDTO()
+                            {
+                                StepId = s.StepId,
+                                StepsTitle = s.StepsTitle,
+                                StepsDescription = s.StepsDescription,
+                            }).ToList()
+                        },                        
                     }).ToList(),
 
-                Departments = c.Departments.Select(d => new  DepartmentDTO()
+                Departments = c.CampusDepartments.Select(d => new CampusDepartmentDTO()
                 {
-                    DepartmentId = d.DepartmentId, 
-                    DepartmentName = d.DepartmentName,
-
-                    Courses = d.Courses.Select(c => new CourseDTO()
+                    CampusDepartmentId = d.CampusDepartmentId,
+                    department = new DepartmentDTO()
                     {
-                        CourseCode = c.CourseCode,
-                        CourseName = c.CourseName,
-                        NQFLevel = c.NQFLevel,
-                        Duration = c.Duration
-                    }).ToList()
+                        DepartmentId = d.Department.DepartmentId,
+                        DepartmentName = d.Department.DepartmentName,
+                        PhoneNumber = d.PhoneNumber,
+                        Email = d.Email,
+                        DepartmentLocation = d.DepartmentLocation,
+                        Courses =d.Department.Courses.Select(cr => new CourseDTO()
+                        {
+                            CourseCode = cr.CourseCode,
+                            CourseName = cr.CourseName,
+                            NQFLevel = cr.NQFLevel,
+                            Duration = cr.Duration
+                        }).ToList()
+                    }
+
                 }).ToList()
                 }).FirstOrDefaultAsync();
                 
@@ -99,7 +106,7 @@ namespace ICTInfoHub.Services.CampusServices
                     })
                      .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new CampusServiceDTO()
+                    Services = c.CampusServices.Select(cs => new CampusServiceDTO()
                     {
                         CampusServiceId = cs.CampusServiceId,
                         service = new ServiceDTO()
@@ -108,31 +115,40 @@ namespace ICTInfoHub.Services.CampusServices
                             ServiceTitle = cs.service.ServiceTitle,
                             ServiceDescription = cs.service.ServiceDescription,
                             ServiceUrl = cs.service.ServiceUrl,
-                            Category = cs.service.Category
-                        },
-                        Email = cs.Email,
-                        Location = cs.Location,
-                        Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new StepsDTO()
-                        {
-                            StepId = s.StepId,
-                            StepsTitle = s.StepsTitle,
-                            StepsDescription = s.StepsDescription,
-                        }).ToList()
+                            Category = cs.service.Category,
+                            Email = cs.Email,
+                            Location = cs.Location,
+                            Phone = cs.Phone,
+                            Steps = cs.Steps.Select(s => new StepsDTO()
+                            {
+                                StepId = s.StepId,
+                                StepsTitle = s.StepsTitle,
+                                StepsDescription = s.StepsDescription,
+                            }).ToList()
+                        }
                     }).ToList(),
 
-                    Departments = c.Departments.Select(d => new DepartmentDTO()
+                    Departments = c.CampusDepartments.Select(d => new CampusDepartmentDTO()
                     {
-                        DepartmentId = d.DepartmentId,
-                        DepartmentName = d.DepartmentName,
-
-                        Courses = d.Courses.Select(c => new CourseDTO()
+                        CampusDepartmentId = d.CampusDepartmentId,
+                        department = new DepartmentDTO()
                         {
-                            CourseCode = c.CourseCode,
-                            CourseName = c.CourseName,
-                            NQFLevel = c.NQFLevel,
-                            Duration = c.Duration
-                        }).ToList()
+                            DepartmentId = d.Department.DepartmentId,
+                            DepartmentName = d.Department.DepartmentName,
+                            PhoneNumber = d.PhoneNumber,
+                            Email = d.Email,
+                            DepartmentLocation = d.DepartmentLocation,
+                            Courses = d.Department.Courses.Select(cr => new CourseDTO()
+                            {
+                                CourseCode = cr.CourseCode,
+                                CourseName = cr.CourseName,
+                                NQFLevel = cr.NQFLevel,
+                                Duration = cr.Duration
+                            }).ToList()
+                        },
+                        
+                        
+
                     }).ToList()
                 }).ToListAsync();
 
@@ -159,7 +175,7 @@ namespace ICTInfoHub.Services.CampusServices
                     })
                      .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new CampusServiceDTO()
+                    Services = c.CampusServices.Select(cs => new CampusServiceDTO()
                     {
                         CampusServiceId = cs.CampusServiceId,
                         service = new ServiceDTO()
@@ -168,31 +184,39 @@ namespace ICTInfoHub.Services.CampusServices
                             ServiceTitle = cs.service.ServiceTitle,
                             ServiceDescription = cs.service.ServiceDescription,
                             ServiceUrl = cs.service.ServiceUrl,
-                            Category = cs.service.Category
-                        },
-                        Email = cs.Email,
-                        Location = cs.Location,
-                        Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new StepsDTO()
-                        {
-                            StepId = s.StepId,
-                            StepsTitle = s.StepsTitle,
-                            StepsDescription = s.StepsDescription,
-                        }).ToList()
+                            Category = cs.service.Category,
+                            Email = cs.Email,
+                            Location = cs.Location,
+                            Phone = cs.Phone,
+                            Steps = cs.Steps.Select(s => new StepsDTO()
+                            {
+                                StepId = s.StepId,
+                                StepsTitle = s.StepsTitle,
+                                StepsDescription = s.StepsDescription,
+                            }).ToList()
+                        }
                     }).ToList(),
 
-                    Departments = c.Departments.Select(d => new DepartmentDTO()
+                    Departments = c.CampusDepartments.Select(d => new CampusDepartmentDTO()
                     {
-                        DepartmentId = d.DepartmentId,
-                        DepartmentName = d.DepartmentName,
-
-                        Courses = d.Courses.Select(c => new CourseDTO()
+                        department = new DepartmentDTO()
                         {
-                            CourseCode = c.CourseCode,
-                            CourseName = c.CourseName,
-                            NQFLevel = c.NQFLevel,
-                            Duration = c.Duration
-                        }).ToList()
+                            DepartmentId = d.Department.DepartmentId,
+                            DepartmentName = d.Department.DepartmentName,
+                            PhoneNumber = d.PhoneNumber,
+                            Email = d.Email,
+                            DepartmentLocation = d.DepartmentLocation,
+                            Courses = d.Department.Courses.Select(cr => new CourseDTO()
+                            {
+                                CourseCode = cr.CourseCode,
+                                CourseName = cr.CourseName,
+                                NQFLevel = cr.NQFLevel,
+                                Duration = cr.Duration
+                            }).ToList()
+                        },
+                        CampusDepartmentId = d.CampusDepartmentId,
+                        
+
                     }).ToList()
                 }).FirstOrDefaultAsync();
 
@@ -219,7 +243,7 @@ namespace ICTInfoHub.Services.CampusServices
                     })
                      .ToList(),
 
-                    CampusServices = c.CampusServices.Select(cs => new CampusServiceDTO()
+                    Services = c.CampusServices.Select(cs => new CampusServiceDTO()
                     {
                         CampusServiceId = cs.CampusServiceId,
                         service = new ServiceDTO()
@@ -228,31 +252,39 @@ namespace ICTInfoHub.Services.CampusServices
                             ServiceTitle = cs.service.ServiceTitle,
                             ServiceDescription = cs.service.ServiceDescription,
                             ServiceUrl = cs.service.ServiceUrl,
-                            Category = cs.service.Category
-                        },
-                        Email = cs.Email,
-                        Location = cs.Location,
-                        Phone = cs.Phone,
-                        Steps = cs.Steps.Select(s => new StepsDTO()
-                        {
-                            StepId = s.StepId,
-                            StepsTitle = s.StepsTitle,
-                            StepsDescription = s.StepsDescription,
-                        }).ToList()
+                            Category = cs.service.Category,
+                            Email = cs.Email,
+                            Location = cs.Location,
+                            Phone = cs.Phone,
+                            Steps = cs.Steps.Select(s => new StepsDTO()
+                            {
+                                StepId = s.StepId,
+                                StepsTitle = s.StepsTitle,
+                                StepsDescription = s.StepsDescription,
+                            }).ToList()
+                        }
                     }).ToList(),
 
-                    Departments = c.Departments.Select(d => new DepartmentDTO()
+                    Departments = c.CampusDepartments.Select(d => new CampusDepartmentDTO()
                     {
-                        DepartmentId = d.DepartmentId,
-                        DepartmentName = d.DepartmentName,
-
-                        Courses = d.Courses.Select(c => new CourseDTO()
+                        department = new DepartmentDTO()
                         {
-                            CourseCode = c.CourseCode,
-                            CourseName = c.CourseName,
-                            NQFLevel = c.NQFLevel,
-                            Duration = c.Duration
-                        }).ToList()
+                            DepartmentId = d.Department.DepartmentId,
+                            DepartmentName = d.Department.DepartmentName,
+                            PhoneNumber = d.PhoneNumber,
+                            Email = d.Email,
+                            DepartmentLocation = d.DepartmentLocation,
+                            Courses = d.Department.Courses.Select(cr => new CourseDTO()
+                            {
+                                CourseCode = cr.CourseCode,
+                                CourseName = cr.CourseName,
+                                NQFLevel = cr.NQFLevel,
+                                Duration = cr.Duration
+                            }).ToList()
+                        },
+                        CampusDepartmentId = d.CampusDepartmentId,
+                        
+
                     }).ToList()
                 }).ToListAsync();
 

@@ -11,11 +11,13 @@ namespace ICTInfoHub.Model.Model
 {
     public class Course
     {
-
+        [Key]
+        public int CourseId { get; set; }
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public string Duration { get; set; }
         public string NQFLevel { get; set; }
+        public ICollection<Module>? Modules { get; set; } = new List<Module>();
         public int DepartmentId { get; set; }
         [ForeignKey(nameof(DepartmentId))]
         [JsonIgnore]

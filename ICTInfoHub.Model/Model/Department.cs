@@ -15,7 +15,7 @@ namespace ICTInfoHub.Model.Model
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         [JsonIgnore]
-        public ICollection<Campus> Campus { get; set; }
+        public ICollection<CampusDepartment> CampusDepartments { get; set; } = new List<CampusDepartment>();
         public ICollection<Course> Courses { get; set; } = new List<Course>();  
     }
 }

@@ -12,9 +12,6 @@ namespace ICTInfoHub.Model.Model.DTOs.CampusDTO
     {
         public int CampusServiceId { get; set; }
         public ServiceDTO service { get; set; }
-        public string Phone { get; set; }
-        public string Location { get; set; }
-        public string Email { get; set; }
-        public ICollection<StepsDTO> Steps { get; set; } = new List<StepsDTO>();
+       
     }
 }

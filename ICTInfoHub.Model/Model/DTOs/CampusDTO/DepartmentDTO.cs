@@ -11,6 +11,9 @@ namespace ICTInfoHub.Model.Model.DTOs.CampusDTO
     {
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string DepartmentLocation { get; set; }
         public ICollection<CourseDTO> Courses { get; set; } = new List<CourseDTO>();
     }
 }

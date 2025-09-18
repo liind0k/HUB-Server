@@ -20,7 +20,7 @@ namespace ICTInfoHub.Model.Model
 
         public ICollection<CampusService> CampusServices { get; set; } = new List<CampusService>();
         
-        public ICollection<Department> Departments { get; set; }   = new List<Department>();
+        public ICollection<CampusDepartment> CampusDepartments { get; set; }   = new List<CampusDepartment>();
 
     }
 }
