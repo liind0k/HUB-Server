@@ -149,9 +149,10 @@ namespace ICTInfoHub.Services.NewsServices
                                             CreatedAt = n.CreatedAt,
                                             isVisible = n.IsVisible,
                                             
-                                            news_Campus = n.Campuses.Select(c => new News_CampusDTO()
-                                            {
-                                                CampusName = c.CampusName
+                                            Campuses = n.Campuses.Select(c => new News_CampusDTO()
+                                                     {
+                                                        CampusName = c.CampusName
+                                                     
                                             }).ToList()
 
                                         }).ToListAsync();
@@ -219,7 +220,7 @@ namespace ICTInfoHub.Services.NewsServices
                             CreatedAt = n.CreatedAt,
                             isVisible = n.IsVisible,
                             
-                            news_Campus = n.Campuses.Select(c => new News_CampusDTO()
+                            Campuses = n.Campuses.Select(c => new News_CampusDTO()
                             {
                                 CampusName = c.CampusName
                             }).ToList()

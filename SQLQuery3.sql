@@ -112,8 +112,8 @@ VALUES
 ('Ms.', 'Louise Brand ', 'Brandl@tut.ac.za'),
 ('Mr.', 'Mashithishi Phurutsi ', 'phurutsimb@tut.ac.za'),
 ('Dr.', 'Sam Adeyelure ', 'adeyelurets@tut.ac.za'),
-('Dr.', 'Stevens Mamorobela ', 'phaphadi@gmail.com'),
-('', '', ''),
+('Dr.', 'Stevens Mamorobela ', 'phaphadi@gmail.com');
+
 
 INSERT INTO Services( ServiceTitle, ServiceDescription, ServiceUrl, Category )
 VALUES 

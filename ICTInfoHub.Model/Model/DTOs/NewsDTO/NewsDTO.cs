@@ -17,6 +17,6 @@ namespace ICTInfoHub.Model.Model.DTOs.NewsDTO
         public byte[]? DocFile { get; set; }
         public bool isVisible { get; set; }
 
-        public List<News_CampusDTO> news_Campus { get; set; }
+        public List<News_CampusDTO> Campuses { get; set; }
     }
 }
