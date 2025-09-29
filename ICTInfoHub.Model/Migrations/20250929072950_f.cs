@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICTInfoHub.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class qwerty : Migration
+    public partial class f : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

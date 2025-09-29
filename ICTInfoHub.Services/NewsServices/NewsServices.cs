@@ -22,7 +22,7 @@ namespace ICTInfoHub.Services.NewsServices
         }
         public async Task<bool> addNews(CreateNewsDTO dto)
         {
-            var admin = await _context.Admins.FindAsync(dto.AdminId);
+            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Id == dto.AdminId && a.Password == dto.Password);
 
             if (admin != null)
             {

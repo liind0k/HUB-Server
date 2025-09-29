@@ -69,7 +69,22 @@ VALUES
 ('ISD316D','Information System Deployment', 15),
 ('ITP316D','IT Project Management B', 15),
 ('PCT316D','Process Testing', 15),
-('WIL316D','Work-Integrated Learning', 60);
+('WIL316D','Work-Integrated Learning', 60),
+('KWM117V','Knowledge Management',15),
+('ITM117V','Information and Technology Management',15),
+('PIF117V','Principles of Research',7),
+('BAA117V','Business Analysis and Application',15),
+('IAR117V','Information Systems Architecture',15),
+('ITP117V','Information Technology Project Management',15),
+('SIS117V','Strategic Information Systems',15),
+('ISR117V','Information System Research',15),
+('BAA118G','Advanced Business Analysis and Application',24),
+('ARP108G','Advanced Research Project',24),
+('ITP118G','Advanced IT Project Management',24),
+('KWM118G','Advanced Knowledge Management',24),
+('RIF118G','Research Methodology',24),
+('FMI118G','','');
+
 
 
 INSERT INTO CourseModule(CourseId, ModuleId)
@@ -112,13 +127,35 @@ VALUES
 ('Ms.', 'Louise Brand ', 'Brandl@tut.ac.za'),
 ('Mr.', 'Mashithishi Phurutsi ', 'phurutsimb@tut.ac.za'),
 ('Dr.', 'Sam Adeyelure ', 'adeyelurets@tut.ac.za'),
+('Mr.', 'Hezekiel Mashego', 'mashegohm@tut.ac.za'),
 ('Dr.', 'Stevens Mamorobela ', 'phaphadi@gmail.com');
 
 
 INSERT INTO Services( ServiceTitle, ServiceDescription, ServiceUrl, Category )
 VALUES 
 
+('Subject additions and cancellations', 'Information about adding or cancelling subjects.', 'https://ienabler.tut.ac.za/pls/prodi41/w99pkg.mi_login', 'senior' ),
 ('Class & Test Timetables', 'Access your class and test schedules.', 'https://www.tut.ac.za/timetables', 'all' ),
+('NO WALK-INS Policy', 'Important policy for new applicants.', 'https://applications-prod.tut.ac.za/', 'newcomer' ),
+('Admissions', 'Information about application processes and deadlines.', 'https://applications-prod.tut.ac.za/', 'newcomer' ),
+('Bursaries', 'Financial assistance and bursary information.', '', 'all' ),
+('Intercampus Transfers', 'Transfers between TUT campuses (Computer Science students only)', 'https://ec.tut.ac.za/', 'senior' ),
+('Re-admission', 'Re-admission after break in studies or exclusion.', 'https://ienabler.tut.ac.za/pls/prodi41/w99pkg.mi_login', 'senior' ),
+('Special & Exit Examinations', 'Apply for special or exit examinations', 'https://www.tut.ac.za/exit-examination', 'senior' ),
+('Probation', 'Handle probation notifications and requirements', '', 'senior' ),
+('Other Admission Enquiries', 'Get help with application status, documentation, and campus changes.', '', 'newcomer' ),
+('Residence Administration', 'Student accommodation and residence matters.', '', 'all' ),
+('Recognition / Examption (CAT)', 'Get Accumulation and Transfer for previous qualifications.', '', 'all' ),
+('WIL For Compuer Science', 'Get your WIL placement and requirements.', '', 'senior' ),
+('Mentorship & Tutoring program', 'Mentorship program for guidance and support..', 'https://sds.onlinewebshop.net/', 'all' ),
+('Studython', 'Studython program for academic support.', '', 'all' ),
+('Peer to Peer learning', 'Peer to Peer learning program for academic support.', 'https://sds.onlinewebshop.net/', 'all' ),
+('WIL For Informatics', 'Get your WIL placement and requirements.', '', 'senior' ),
+('WIL For Information Technology', 'Get your WIL placement and requirements.', '', 'senior' ),
+('Change of Course', 'Process for changing your academic course (not admission related).', 'https://ec.tut.ac.za/', 'senior' ),
+('Financial Exclusion', 'Assistance with financial exclusion matters.', 'https://ienabler.tut.ac.za/pls/prodi41/w99pkg.mi_login', 'senior' ),
+('Academic Exclusions', 'Information and appeals process for academic exclusions.', 'https://ec.tut.ac.za', 'senior' ),
+('Mark Enquiries/Predicate Enquiries', 'Get assistance with mark-related queries and academic predicates.', 'https://os.tut.ac.za/ExamsLegacy', 'all' ),
 ('NSFAS Enquiries', 'National Student Financial Aid Scheme support and information.','https://www.nsfas.org.za', 'senior');
 
 INSERT INTO CampusService(CampusId, ServiceId, Phone, Email, Location)

@@ -11,6 +11,8 @@ namespace ICTInfoHub.Model.Model.DTOs
         [ForeignKey("AdminId")]
         public int AdminId { get; set; }
         [Required]
+        public string Password { get; set; }
+        [Required]
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }

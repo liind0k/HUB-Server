@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICTInfoHub.Model.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20250919101851_qwerty")]
-    partial class qwerty
+    [Migration("20250929072950_f")]
+    partial class f
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

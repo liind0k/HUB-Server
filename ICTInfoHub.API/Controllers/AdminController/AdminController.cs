@@ -91,7 +91,6 @@ namespace ICTInfoHub.API.Controllers.AdminController
             }
         }
 
-
         [HttpPost("AdminLogin")]
         public async Task<IActionResult> AdminLogin(LoginAdminDTO admin)
         {
@@ -110,6 +109,6 @@ namespace ICTInfoHub.API.Controllers.AdminController
             }
 
         }
-
+        
     }
 }
